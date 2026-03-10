@@ -4,12 +4,12 @@
     <% already_evaluated = @user.evaluations_received.exists?(admin_id: current_user.id) %>
     <% if already_evaluated %>
       <button class="btn btn-ghost gap-1 btn-disabled" disabled>
-        <%= heroicon :pencil_square, variant: :mini, options: { class: "w-4 h-4" } %>
+        <%= heroicon :pencil, variant: :mini, options: { class: "w-4 h-4" } %>
         <span><%= t("admin.results.evaluate") %></span>
       </button>
     <% else %>
       <%= link_to admin_new_user_evaluation_path(user_id: @user.id), class: "btn btn-primary gap-1" do %>
-        <%= heroicon :pencil_square, variant: :mini, options: { class: "w-4 h-4" } %>
+        <%= heroicon :pencil, variant: :mini, options: { class: "w-4 h-4" } %>
         <span><%= t("admin.results.evaluate") %></span>
       <% end %>
     <% end %>
@@ -129,7 +129,7 @@
           <p class="text-sm mt-1"><%= e.comment %></p>
         <% end %>
         <%= link_to edit_admin_evaluation_path(e), class: "btn btn-ghost btn-sm mt-2 gap-1" do %>
-          <%= heroicon :pencil_square, variant: :mini, options: { class: "w-4 h-4" } %>
+          <%= heroicon :pencil, variant: :mini, options: { class: "w-4 h-4" } %>
           <span><%= t("admin.actions.edit") %></span>
         <% end %>
       </div>

@@ -42,6 +42,7 @@ ru:
       correct_vs_incorrect: "Правильные и неправильные ответы"
       completed_by_day: "Завершённые квизы по дням"
       answers_by_category: "Ответы по категориям"
+      answers_percent_by_category: "Ответы по категориям (% правильных)"
       correct_by_category: "Правильные ответы по категориям"
       correct: "Правильно"
       incorrect: "Неправильно"
@@ -106,11 +107,17 @@ ru:
       new: "Новая категория"
       edit: "Изменить категорию"
       questions_count: "вопросов"
+      created: "Категория успешно создана."
+      updated: "Категория успешно обновлена."
+      destroyed: "Категория удалена."
     questions:
       index_title: "Вопросы"
       new: "Новый вопрос"
       edit: "Изменить вопрос"
       position: "Позиция"
+      created: "Вопрос успешно создан."
+      updated: "Вопрос успешно обновлён."
+      destroyed: "Вопрос удалён."
     answer_options:
       index_title: "Варианты ответов"
       add: "Добавить вариант"
@@ -135,20 +142,13 @@ ru:
       incorrect: "Неправильно"
       no_data: "Пока нет данных."
     nav:
+      management: "Управление"
       users: "Пользователи"
       categories: "Категории"
       questions: "Вопросы"
       results: "Результаты"
       evaluations: "Оценки"
       logout: "Выйти"
-    categories:
-      created: "Категория успешно создана."
-      updated: "Категория успешно обновлена."
-      destroyed: "Категория удалена."
-    questions:
-      created: "Вопрос успешно создан."
-      updated: "Вопрос успешно обновлён."
-      destroyed: "Вопрос удалён."
     users:
       index_title: "Пользователи"
       new: "Новый пользователь"
@@ -175,10 +175,12 @@ ru:
       archived: "Пользователь архивирован."
       activated: "Пользователь активирован."
     evaluations:
+      new_title: "Оценка: %{user}"
+      edit_title: "Редактировать оценку"
       created: "Оценка создана."
       updated: "Оценка обновлена."
-      criteria_title: "Критерии оценки (1–10 баллов)"
-      criteria_hint: "Оцените по шкале от 1 до 10."
+      criteria_title: "Критерии оценки (1–5 баллов)"
+      criteria_hint: "Оцените по шкале от 1 до 5."
       criteria:
         technical_knowledge: "Технические знания"
         argumentation: "Аргументация позиции"
@@ -232,6 +234,28 @@ ru:
 
   activerecord:
     errors:
+      messages:
+        accepted: "должно быть принято"
+        blank: "не может быть пустым"
+        confirmation: "не совпадает с подтверждением"
+        empty: "не может быть пустым"
+        exclusion: "зарезервировано"
+        inclusion: "не входит в список допустимых значений"
+        invalid: "имеет неверное значение"
+        not_a_number: "не является числом"
+        not_an_integer: "должно быть целым числом"
+        greater_than: "должно быть больше %{count}"
+        greater_than_or_equal_to: "должно быть не меньше %{count}"
+        equal_to: "должно быть равно %{count}"
+        less_than: "должно быть меньше %{count}"
+        less_than_or_equal_to: "должно быть не больше %{count}"
+        other_than: "должно быть отлично от %{count}"
+        present: "должно быть пустым"
+        required: "должно существовать"
+        taken: "уже занято"
+        too_long: "слишком длинное (максимум %{count} символов)"
+        too_short: "слишком короткое (минимум %{count} символов)"
+        wrong_length: "неверная длина (должно быть %{count} символов)"
       models:
         quiz_attempt:
           one_active_attempt: "У вас уже есть активная попытка прохождения квиза."

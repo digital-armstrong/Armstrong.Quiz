@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Download Chart.js and Chartkick to public/ for local chart rendering.
+# Run once: ./script/download_chart_assets
+# This avoids loading charts from CDN and prevents browser from requesting .map from CDN.
+
+set -e
+mkdir -p public
+CHART_JS_URL="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"
+CHARTKICK_URL="https://cdn.jsdelivr.net/npm/chartkick@5.0.1/dist/chartkick.js"
+
+echo "Downloading Chart.js..."
+curl -sL "$CHART_JS_URL" -o public/chart.umd.min.js
+# Remove sourceMappingURL so the browser does not request .map (from CDN or 404)
+sed -i '' '/sourceMappingURL/d' public/chart.umd.min.js 2>/dev/null || sed -i '/sourceMappingURL/d' public/chart.umd.min.js
+
+echo "Downloading Chartkick..."
+curl -sL "$CHARTKICK_URL" -o public/chartkick.js
+
+echo "Done. Chart assets are in public/"

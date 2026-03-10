@@ -2,7 +2,7 @@
   <h1 class="text-2xl font-bold"><%= @question.title %></h1>
   <div class="flex gap-2">
     <%= link_to edit_admin_question_path(@question), class: "btn btn-primary gap-1" do %>
-      <%= heroicon :pencil_square, variant: :mini, options: { class: "w-4 h-4" } %>
+      <%= heroicon :pencil, variant: :mini, options: { class: "w-4 h-4" } %>
       <span><%= t("admin.actions.edit") %></span>
     <% end %>
     <%= link_to new_admin_question_answer_option_path(@question), class: "btn btn-outline gap-1" do %>
@@ -18,7 +18,7 @@
 
 <div class="card bg-base-100 shadow-xl mb-6">
   <div class="card-body">
-    <p class="text-sm text-base-content/70"><%= @question.category.title %> · <%= t("admin.questions.position") %> <%= @question.position %></p>
+    <p class="text-sm text-base-content/70"><%= @question.category.title %></p>
     <div class="markdown mt-2"><%= markdown(@question.body) %></div>
   </div>
 </div>
@@ -33,7 +33,7 @@
           <span class="badge badge-success"><%= t("admin.answer_options.correct") %></span>
         <% end %>
         <%= link_to edit_admin_answer_option_path(opt), class: "btn btn-ghost btn-sm gap-1" do %>
-          <%= heroicon :pencil_square, variant: :mini, options: { class: "w-4 h-4" } %>
+          <%= heroicon :pencil, variant: :mini, options: { class: "w-4 h-4" } %>
           <span><%= t("admin.actions.edit") %></span>
         <% end %>
         <%= button_to admin_answer_option_path(opt), method: :delete,

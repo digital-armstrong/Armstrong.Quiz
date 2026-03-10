@@ -65,12 +65,12 @@
             <% end %>
           <% if already_evaluated %>
             <button class="btn btn-ghost btn-sm gap-1 btn-disabled" disabled>
-              <%= heroicon :pencil_square, variant: :mini, options: { class: "w-4 h-4" } %>
+              <%= heroicon :pencil, variant: :mini, options: { class: "w-4 h-4" } %>
               <span><%= t("admin.results.evaluate") %></span>
             </button>
           <% else %>
             <%= link_to admin_new_user_evaluation_path(user_id: user.id), class: "btn btn-primary btn-sm gap-1" do %>
-              <%= heroicon :pencil_square, variant: :mini, options: { class: "w-4 h-4" } %>
+              <%= heroicon :pencil, variant: :mini, options: { class: "w-4 h-4" } %>
               <span><%= t("admin.results.evaluate") %></span>
             <% end %>
           <% end %>

@@ -9,7 +9,7 @@ class QuizAttempt < ApplicationRecord
   def current_question
     return nil unless category_id
     answered_ids = user_answers.pluck(:question_id)
-    category.questions.order(:position).where.not(id: answered_ids).first
+    category.questions.order(:id).where.not(id: answered_ids).first
   end
 
   def completed?

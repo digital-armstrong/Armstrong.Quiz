@@ -7,7 +7,7 @@ module Admin
     before_action :set_categories, only: %i[new edit create update new_option_fields]
 
     def index
-      @questions = policy_scope(Question).includes(:category).order("categories.title", position: :asc)
+      @questions = policy_scope(Question).includes(:category).order("categories.title", :id)
     end
 
     def show
@@ -16,7 +16,7 @@ module Admin
     end
 
     def new
-      @question = Question.new(position: (Question.maximum(:position) || 0) + 1)
+      @question = Question.new
       authorize @question
     end
 
@@ -78,7 +78,7 @@ module Admin
 
     def question_params
       params.require(:question).permit(
-        :category_id, :title, :body, :position,
+        :category_id, :title, :body,
         answer_options_attributes: %i[id body correct position _destroy]
       )
     end

@@ -57,6 +57,7 @@ en:
       correct_vs_incorrect: "Correct vs incorrect answers"
       completed_by_day: "Completed quizzes by day"
       answers_by_category: "Answers by category"
+      answers_percent_by_category: "Answers by category (% correct)"
       correct_by_category: "Correct answers by category"
       correct: "Correct"
       incorrect: "Incorrect"
@@ -117,11 +118,17 @@ en:
       new: "New category"
       edit: "Edit category"
       questions_count: "questions"
+      created: "Category was successfully created."
+      updated: "Category was successfully updated."
+      destroyed: "Category was successfully destroyed."
     questions:
       index_title: "Questions"
       new: "New question"
       edit: "Edit question"
       position: "Position"
+      created: "Question was successfully created."
+      updated: "Question was successfully updated."
+      destroyed: "Question was successfully destroyed."
     answer_options:
       index_title: "Answer options"
       add: "Add option"
@@ -146,20 +153,13 @@ en:
       incorrect: "Incorrect"
       no_data: "No data yet."
     nav:
+      management: "Management"
       users: "Users"
       categories: "Categories"
       questions: "Questions"
       results: "Results"
       evaluations: "Evaluations"
       logout: "Log out"
-    categories:
-      created: "Category was successfully created."
-      updated: "Category was successfully updated."
-      destroyed: "Category was successfully destroyed."
-    questions:
-      created: "Question was successfully created."
-      updated: "Question was successfully updated."
-      destroyed: "Question was successfully destroyed."
     users:
       index_title: "Users"
       new: "New user"
@@ -186,10 +186,12 @@ en:
       archived: "User was archived."
       activated: "User was activated."
     evaluations:
+      new_title: "Evaluation: %{user}"
+      edit_title: "Edit evaluation"
       created: "Evaluation was successfully created."
       updated: "Evaluation was successfully updated."
-      criteria_title: "Evaluation criteria (1–10 points)"
-      criteria_hint: "Rate from 1 to 10."
+      criteria_title: "Evaluation criteria (1–5 points)"
+      criteria_hint: "Rate from 1 to 5."
       criteria:
         technical_knowledge: "Technical knowledge"
         argumentation: "Argumentation"
@@ -243,6 +245,28 @@ en:
 
   activerecord:
     errors:
+      messages:
+        accepted: "must be accepted"
+        blank: "can't be blank"
+        confirmation: "doesn't match %{attribute}"
+        empty: "can't be empty"
+        exclusion: "is reserved"
+        inclusion: "is not included in the list"
+        invalid: "is invalid"
+        not_a_number: "is not a number"
+        not_an_integer: "must be an integer"
+        greater_than: "must be greater than %{count}"
+        greater_than_or_equal_to: "must be greater than or equal to %{count}"
+        equal_to: "must be equal to %{count}"
+        less_than: "must be less than %{count}"
+        less_than_or_equal_to: "must be less than or equal to %{count}"
+        other_than: "must be other than %{count}"
+        present: "must be blank"
+        required: "must exist"
+        taken: "has already been taken"
+        too_long: "is too long (maximum is %{count} characters)"
+        too_short: "is too short (minimum is %{count} characters)"
+        wrong_length: "is the wrong length (should be %{count} characters)"
       models:
         quiz_attempt:
           one_active_attempt: "You already have an active quiz attempt."

@@ -71,7 +71,7 @@ module Admin
       all_answers = answers_scope
         .includes(:question, :answer_option, question: :category)
         .joins(question: :category)
-        .order("categories.title", "questions.position")
+        .order("categories.title", "questions.id")
       @user_answers_by_category = all_answers.group_by { |ua| ua.question.category }.sort_by { |cat, _| cat.title }.to_h
     end
   end

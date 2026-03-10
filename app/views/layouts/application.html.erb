@@ -47,14 +47,9 @@
       </div>
     </div>
 
-    <% if notice.present? %>
-      <p class="notice alert alert-info rounded-none mb-0"><%= notice %></p>
-    <% end %>
-    <% if alert.present? %>
-      <p class="alert alert-warning rounded-none mb-0"><%= alert %></p>
-    <% end %>
     <main class="container mx-auto mt-8 px-5">
       <%= yield %>
     </main>
+    <%= render "shared/toast_flash" %>
   </body>
 </html>

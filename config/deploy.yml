@@ -1,0 +1,45 @@
+# Kamal 2 — деплой на echo-sonata.com
+# Документация: https://kamal-deploy.org/docs
+
+service: armstrong-quiz
+
+image: echo-sonata/armstrong-quiz
+
+# Сервер(а). Подставьте IP или hostname вашего VPS.
+servers:
+  web:
+    - 1.2.3.4  # Замените на IP вашего сервера
+
+# SSL через Let's Encrypt (Traefik). Домен должен указывать на IP сервера.
+proxy:
+  ssl: true
+  host: echo-sonata.com
+  # Опционально: редирект www -> основной домен
+  # aliases:
+  #   - www.echo-sonata.com
+
+# Реестр образов (Docker Hub, GitHub Container Registry и т.д.).
+# Создайте .kamal/secrets и добавьте KAMAL_REGISTRY_PASSWORD (и при необходимости KAMAL_REGISTRY_USERNAME).
+registry:
+  username: echo-sonata
+  # server: ghcr.io   # раскомментируйте для GitHub Container Registry
+  # password:
+  #   - KAMAL_REGISTRY_PASSWORD
+
+builder:
+  arch: amd64
+
+# Переменные окружения. Секреты подтягиваются из .kamal/secrets.
+env:
+  clear:
+    RAILS_ENV: production
+  secret:
+    - RAILS_MASTER_KEY
+
+# Постоянный том для SQLite и Solid Cache/Queue/Cable (storage/ в приложении = /rails/storage в контейнере).
+volumes:
+  - app_storage:/rails/storage
+
+# Опционально: другой SSH-пользователь на сервере
+# ssh:
+#   user: deploy

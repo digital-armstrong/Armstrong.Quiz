@@ -8,29 +8,38 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartkick"></script>
+    <script src="/chart.umd.min.js" data-turbo-track="reload" defer></script>
+    <script src="/chartkick.js" data-turbo-track="reload" defer></script>
   </head>
   <body class="min-h-screen bg-base-200">
-    <% if notice.present? %>
-      <p class="notice alert alert-info rounded-none mb-0"><%= notice %></p>
-    <% end %>
-    <% if alert.present? %>
-      <p class="alert alert-warning rounded-none mb-0"><%= alert %></p>
-    <% end %>
-
     <div class="navbar bg-base-100 shadow-lg">
       <div class="navbar-start">
-        <%= link_to "Armstrong Quiz Admin", admin_root_path, class: "btn btn-ghost text-xl" %>
+        <%= link_to admin_root_path, class: "btn btn-ghost text-xl font-bold gap-1" do %>
+          <span class="font-extrabold">ARMStrong</span>
+          <span class="text-primary">:</span>
+          <span>Quiz</span>
+          <span class="text-primary">:</span>
+          <span>Admin</span>
+        <% end %>
       </div>
       <div class="navbar-end gap-2">
         <% if current_user.admin? %>
-          <%= link_to t("admin.nav.users"), admin_users_path, class: "btn btn-ghost btn-sm" %>
-          <%= link_to t("admin.nav.categories"), admin_categories_path, class: "btn btn-ghost btn-sm" %>
-          <%= link_to t("admin.nav.questions"), admin_questions_path, class: "btn btn-ghost btn-sm" %>
+          <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-sm"><%= t("admin.nav.management") %></div>
+            <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+              <li><%= link_to t("admin.nav.categories"), admin_categories_path %></li>
+              <li><%= link_to t("admin.nav.questions"), admin_questions_path %></li>
+              <li><%= link_to t("admin.nav.users"), admin_users_path %></li>
+            </ul>
+          </div>
         <% end %>
-        <%= link_to t("admin.nav.results"), admin_results_path, class: "btn btn-ghost btn-sm" %>
-        <%= link_to t("admin.nav.evaluations"), admin_evaluation_summaries_path, class: "btn btn-ghost btn-sm" %>
+        <div class="dropdown dropdown-end">
+          <div tabindex="0" role="button" class="btn btn-ghost btn-sm"><%= t("admin.nav.results") %></div>
+          <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+            <li><%= link_to t("admin.nav.results"), admin_results_path %></li>
+            <li><%= link_to t("admin.nav.evaluations"), admin_evaluation_summaries_path %></li>
+          </ul>
+        </div>
         <%= link_to t("admin.nav.logout"), destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-ghost btn-sm" %>
       </div>
     </div>
@@ -38,5 +47,6 @@
     <main class="container mx-auto mt-8 px-5 pb-12">
       <%= yield %>
     </main>
+    <%= render "shared/toast_flash" %>
   </body>
 </html>

@@ -3,27 +3,37 @@
     <h2 class="card-title text-2xl"><%= t("devise.registrations.new.title") %></h2>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-4" }) do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
-
       <% resource.build_profile if resource.profile.nil? %>
       <%= f.fields_for :profile do |pf| %>
         <div class="form-control">
           <%= pf.label :last_name, t("activerecord.attributes.profile.last_name"), class: "label" %>
           <%= pf.text_field :last_name, class: "input input-bordered w-full", autofocus: true %>
+          <% if pf.object.errors[:last_name].any? %>
+            <p class="text-error text-sm mt-1"><%= pf.object.errors[:last_name].first %></p>
+          <% end %>
         </div>
         <div class="form-control">
           <%= pf.label :first_name, t("activerecord.attributes.profile.first_name"), class: "label" %>
           <%= pf.text_field :first_name, class: "input input-bordered w-full" %>
+          <% if pf.object.errors[:first_name].any? %>
+            <p class="text-error text-sm mt-1"><%= pf.object.errors[:first_name].first %></p>
+          <% end %>
         </div>
         <div class="form-control">
           <%= pf.label :middle_name, t("activerecord.attributes.profile.middle_name") + " (" + t("activerecord.attributes.profile.middle_name_optional") + ")", class: "label" %>
           <%= pf.text_field :middle_name, class: "input input-bordered w-full" %>
+          <% if pf.object.errors[:middle_name].any? %>
+            <p class="text-error text-sm mt-1"><%= pf.object.errors[:middle_name].first %></p>
+          <% end %>
         </div>
       <% end %>
 
       <div class="form-control">
         <%= f.label :email, class: "label" %>
         <%= f.email_field :email, autocomplete: "email", class: "input input-bordered w-full" %>
+        <% if resource.errors[:email].any? %>
+          <p class="text-error text-sm mt-1"><%= resource.errors[:email].first %></p>
+        <% end %>
       </div>
 
       <div class="form-control">
@@ -32,11 +42,17 @@
           <span class="label-text-alt">(<%= @minimum_password_length %> <%= t("devise.registrations.new.characters_minimum") %>)</span>
         <% end %>
         <%= f.password_field :password, autocomplete: "new-password", class: "input input-bordered w-full" %>
+        <% if resource.errors[:password].any? %>
+          <p class="text-error text-sm mt-1"><%= resource.errors[:password].first %></p>
+        <% end %>
       </div>
 
       <div class="form-control">
         <%= f.label :password_confirmation, class: "label" %>
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input input-bordered w-full" %>
+        <% if resource.errors[:password_confirmation].any? %>
+          <p class="text-error text-sm mt-1"><%= resource.errors[:password_confirmation].first %></p>
+        <% end %>
       </div>
 
       <div class="form-control">

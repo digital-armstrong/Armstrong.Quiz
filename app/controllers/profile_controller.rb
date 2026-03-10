@@ -18,14 +18,18 @@ class ProfileController < ApplicationController
     @correct_answers = UserAnswer.correct_countable(answers_scope)
     @correct_percent = @total_answers.positive? ? (@correct_answers.to_f / @total_answers * 100).round(1) : 0
 
-    @completed_by_day = attempts_scope.where(completed: true).group_by_day(:completed_at).count
     @correct_vs_incorrect = {
       t("profile.charts.correct") => @correct_answers,
       t("profile.charts.incorrect") => @total_answers - @correct_answers
     }
-    @answers_by_category = answers_scope.joins(question: :category).group("categories.title").count
-    @correct_by_category = countable_scope
+    answers_by_category = answers_scope.joins(question: :category).group("categories.title").count
+    correct_by_category = countable_scope
       .where("(answer_options.correct = :yes) OR (user_answers.admin_correct = :yes)", yes: true)
       .joins(question: :category).group("categories.title").count
+    @answers_percent_by_category = answers_by_category.to_h do |cat, total|
+      correct = correct_by_category[cat].to_i
+      pct = total.positive? ? (correct.to_f / total * 100).round(1) : 0
+      [cat, pct]
+    end
   end
 end

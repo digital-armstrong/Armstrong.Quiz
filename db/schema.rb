@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_10_170000) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_10_180000) do
   create_table "answer_options", force: :cascade do |t|
     t.text "body"
     t.boolean "correct"
@@ -62,7 +62,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_170000) do
     t.text "body"
     t.integer "category_id", null: false
     t.datetime "created_at", null: false
-    t.integer "position"
     t.string "title"
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_questions_on_category_id"

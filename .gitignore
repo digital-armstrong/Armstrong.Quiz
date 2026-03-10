@@ -41,6 +41,9 @@
 # Ignore key files for decrypting credentials and more.
 /config/*.key
 
+# Kamal deploy secrets (never commit)
+/.kamal
+
 
 /app/assets/builds/*
 !/app/assets/builds/.keep

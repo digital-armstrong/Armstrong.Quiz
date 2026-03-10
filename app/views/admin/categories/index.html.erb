@@ -26,7 +26,7 @@
               <span><%= t("admin.actions.show") %></span>
             <% end %>
             <%= link_to edit_admin_category_path(category), class: "btn btn-ghost btn-sm gap-1" do %>
-              <%= heroicon :pencil_square, variant: :mini, options: { class: "w-4 h-4" } %>
+              <%= heroicon :pencil, variant: :mini, options: { class: "w-4 h-4" } %>
               <span><%= t("admin.actions.edit") %></span>
             <% end %>
             <%= button_to admin_category_path(category), method: :delete,

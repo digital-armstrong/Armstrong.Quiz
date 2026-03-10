@@ -1,6 +1,6 @@
 <% content_for :head do %>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartkick"></script>
+  <script src="/chart.umd.min.js" data-turbo-track="reload" defer></script>
+  <script src="/chartkick.js" data-turbo-track="reload" defer></script>
 <% end %>
 
 <div class="max-w-5xl mx-auto">
@@ -72,28 +72,9 @@
         <% end %>
       </div>
       <div class="bg-base-100 rounded-box shadow p-4">
-        <h3 class="font-semibold mb-4"><%= t("profile.charts.completed_by_day") %></h3>
-        <% if @completed_count.positive? %>
-          <%= column_chart @completed_by_day, colors: ["#36d399"] %>
-        <% else %>
-          <p class="text-base-content/70 py-8"><%= t("profile.no_data") %></p>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="grid gap-8 md:grid-cols-2">
-      <div class="bg-base-100 rounded-box shadow p-4">
-        <h3 class="font-semibold mb-4"><%= t("profile.charts.answers_by_category") %></h3>
-        <% if @answers_by_category.any? %>
-          <%= bar_chart @answers_by_category, colors: ["#3b82f6"] %>
-        <% else %>
-          <p class="text-base-content/70 py-8"><%= t("profile.no_data") %></p>
-        <% end %>
-      </div>
-      <div class="bg-base-100 rounded-box shadow p-4">
-        <h3 class="font-semibold mb-4"><%= t("profile.charts.correct_by_category") %></h3>
-        <% if @correct_by_category.any? %>
-          <%= bar_chart @correct_by_category, colors: ["#36d399"] %>
+        <h3 class="font-semibold mb-4"><%= t("profile.charts.answers_percent_by_category") %></h3>
+        <% if @answers_percent_by_category.any? %>
+          <%= bar_chart @answers_percent_by_category, colors: ["#3b82f6"], suffix: "%" %>
         <% else %>
           <p class="text-base-content/70 py-8"><%= t("profile.no_data") %></p>
         <% end %>

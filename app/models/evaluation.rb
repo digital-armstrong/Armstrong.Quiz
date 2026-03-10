@@ -9,7 +9,7 @@ class Evaluation < ApplicationRecord
   validates :score, numericality: { only_integer: true, allow_nil: true }
   validates :technical_knowledge, :argumentation, :creative_thinking, :team_collaboration,
             :leadership, :execution, :quick_learning,
-            numericality: { only_integer: true, in: 1..10, allow_nil: true }
+            numericality: { only_integer: true, in: 1..5, allow_nil: true }
   validates :recommendation, inclusion: { in: RECOMMENDATIONS, allow_nil: true }
   validates :user_id, uniqueness: { scope: :admin_id }
 
