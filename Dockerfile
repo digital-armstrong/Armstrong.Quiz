@@ -27,7 +27,7 @@ ENV RAILS_ENV="production" \
     BUNDLE_WITHOUT="development" \
     LD_PRELOAD="/usr/local/lib/libjemalloc.so"
 
-# Build Tailwind CSS (Node required for Tailwind v4 + daisyUI)
+# Build Tailwind CSS + daisyUI here (yarn build:css is NOT run in Rails stage — this replaces it)
 FROM docker.io/library/node:20-slim AS tailwind
 WORKDIR /app
 COPY package.json yarn.lock ./
@@ -62,12 +62,14 @@ COPY --from=tailwind /app/app/assets/builds/tailwind.css app/assets/builds/tailw
 RUN bundle exec bootsnap precompile -j 1 app/ lib/
 
 # Precompiling assets for production (Tailwind already built; TAILWIND_SKIP_BUILD avoids yarn in this image)
-RUN SECRET_KEY_BASE_DUMMY=1 TAILWIND_SKIP_BUILD=1 ./bin/rails assets:precompile
+RUN SECRET_KEY_BASE_DUMMY=1 TAILWIND_SKIP_BUILD=1 ./bin/rails assets:precompile && \
+    test -f app/assets/builds/tailwind.css && \
+    (ls public/assets/tailwind*.css 2>/dev/null | head -1) || (echo "ERROR: tailwind.css not in public/assets" && exit 1)
 
 
 
 
-# Final stage for app image
+# Final stage for app image (no Node/yarn — Tailwind already in public/assets from build stage)
 FROM base
 
 # Run and own only the runtime files as a non-root user for security
