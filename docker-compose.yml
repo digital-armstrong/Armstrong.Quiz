@@ -1,0 +1,38 @@
+# Production: приложение + Caddy (HTTPS с Let's Encrypt).
+# Запуск: docker compose up -d
+# Требуется: .env с RAILS_MASTER_KEY (и опционально CADDY_EMAIL для Let's Encrypt).
+
+services:
+  app:
+    build: .
+    image: armstrong-quiz
+    restart: unless-stopped
+    environment:
+      - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+      - RAILS_ENV=production
+    volumes:
+      - app_storage:/rails/storage
+    # Не публикуем порт — снаружи только Caddy (80/443)
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      - CADDY_AGREE=true
+      - ACME_AGREE=true
+      # Email для уведомлений Let's Encrypt (истечение сертификата):
+      - ${CADDY_EMAIL:-}
+    depends_on:
+      - app
+
+volumes:
+  app_storage:
+  caddy_data:
+  caddy_config:

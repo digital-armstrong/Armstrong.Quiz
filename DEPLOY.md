@@ -1,6 +1,56 @@
 # Деплой Armstrong Quiz на echo-sonata.com
 
-Проект настроен на деплой через [Kamal 2](https://kamal-deploy.org/) (Docker + Traefik). Домен: **echo-sonata.com**.
+Домен: **echo-sonata.com**. Доступны два варианта деплоя: **Docker Compose + Caddy (HTTPS)** или [Kamal 2](https://kamal-deploy.org/) (Traefik).
+
+---
+
+## Вариант 1: Docker Compose + Caddy (HTTPS с Let's Encrypt)
+
+Самый простой способ получить HTTPS: Caddy автоматически получает и обновляет сертификат Let's Encrypt.
+
+### Требования
+
+- Сервер с Docker и Docker Compose
+- Домен echo-sonata.com с DNS A-записью на IP сервера
+- Порты 80 и 443 свободны и открыты снаружи
+
+### Шаги
+
+1. **Клонируйте репозиторий на сервер** (или скопируйте файлы).
+
+2. **Создайте `.env`** в корне проекта (см. `.env.example`):
+
+   ```bash
+   cp .env.example .env
+   # Отредактируйте .env: подставьте RAILS_MASTER_KEY из config/master.key
+   # Опционально: CADDY_EMAIL=ваш@email.com — для уведомлений Let's Encrypt
+   ```
+
+3. **Соберите и запустите**:
+
+   ```bash
+   docker compose build
+   docker compose up -d
+   ```
+
+4. При первом запросе к **https://echo-sonata.com** Caddy запросит сертификат у Let's Encrypt. Дальше сайт будет доступен по HTTPS, куки сессии будут работать (Secure), логин сохранится.
+
+### Полезные команды
+
+- `docker compose logs -f caddy` — логи Caddy (в т.ч. получение сертификата)
+- `docker compose logs -f app` — логи приложения
+- `docker compose down` / `docker compose up -d` — остановка и запуск
+
+### Важно
+
+- Не задавайте `FORCE_SSL=false` при работе за Caddy: приложение получает запросы уже по HTTPS (прокси подставляет заголовки), secure-куки должны быть включены.
+- Сертификаты и данные Caddy хранятся в томах `caddy_data` и `caddy_config`; при пересоздании контейнеров они сохраняются.
+
+---
+
+## Вариант 2: Kamal 2 (Docker + Traefik)
+
+Проект также настроен на деплой через [Kamal 2](https://kamal-deploy.org/) (Traefik). Домен: **echo-sonata.com**.
 
 ## Требования
 
