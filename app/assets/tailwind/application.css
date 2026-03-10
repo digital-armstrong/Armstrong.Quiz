@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@source "../../views/**/*.erb";
+@source "../../components/**/*.erb";
 @plugin "daisyui" {
   themes: lofi --default, dark --prefersdark, light;
 }

@@ -33,6 +33,7 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 RUN corepack enable && yarn install && npm install @tailwindcss/cli
 COPY app/assets/tailwind app/assets/tailwind
+COPY app/views app/views
 RUN mkdir -p app/assets/builds && npx @tailwindcss/cli -i app/assets/tailwind/application.css -o app/assets/builds/tailwind.css
 
 # Throw-away build stage to reduce size of final image
