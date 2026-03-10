@@ -1,12 +1,14 @@
 # Production: приложение + Caddy (HTTPS с Let's Encrypt).
 # Запуск: docker compose up -d
-# Требуется: .env с RAILS_MASTER_KEY (и опционально CADDY_EMAIL для Let's Encrypt).
+# Требуется: файл .env в этой папке с одной строкой:
+#   RAILS_MASTER_KEY=<содержимое config/master.key, без кавычек и пробелов>
 
 services:
   app:
     build: .
     image: armstrong-quiz
     restart: unless-stopped
+    env_file: .env
     environment:
       - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
       - RAILS_ENV=production
@@ -27,8 +29,6 @@ services:
     environment:
       - CADDY_AGREE=true
       - ACME_AGREE=true
-      # Email для уведомлений Let's Encrypt (истечение сертификата):
-      - ${CADDY_EMAIL:-}
     depends_on:
       - app
 

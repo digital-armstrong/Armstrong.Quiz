@@ -1,5 +1,12 @@
 #!/bin/bash -e
 
+# RAILS_MASTER_KEY обязателен (расшифровка credentials). Без него — "key must be 16 bytes".
+if [ -z "${RAILS_MASTER_KEY}" ] || [ "${#RAILS_MASTER_KEY}" -lt 16 ]; then
+  echo "ERROR: RAILS_MASTER_KEY is missing or too short (need 32 chars from config/master.key)."
+  echo "Set it in .env: RAILS_MASTER_KEY=\$(cat config/master.key)"
+  exit 1
+fi
+
 # If running the rails server then create or migrate existing database
 if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
   ./bin/rails db:prepare

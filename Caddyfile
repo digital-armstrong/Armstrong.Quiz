@@ -1,11 +1,8 @@
 # HTTPS с автоматическим Let's Encrypt для echo-sonata.com
 # Caddy сам получает и обновляет сертификат (ACME).
 # Запуск: через docker-compose (см. DEPLOY.md).
-# Опционально: задайте CADDY_EMAIL в .env для уведомлений Let's Encrypt.
-
-{
-    email {$CADDY_EMAIL}
-}
+# Чтобы получать уведомления Let's Encrypt, добавьте в начало блок:
+#   { email ваш@email.com }
 
 echo-sonata.com, www.echo-sonata.com {
     reverse_proxy app:80
