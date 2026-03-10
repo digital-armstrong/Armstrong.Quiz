@@ -1,0 +1,107 @@
+<% content_for :head do %>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartkick"></script>
+<% end %>
+
+<div class="max-w-5xl mx-auto">
+  <h1 class="text-3xl font-bold mb-2"><%= t("profile.title") %></h1>
+
+  <div class="card bg-base-100 shadow mb-8">
+    <div class="card-body">
+      <h2 class="card-title text-lg"><%= t("profile.fio") %></h2>
+      <p class="text-lg"><%= current_user.full_name %></p>
+    </div>
+  </div>
+
+  <% if current_user.mentor? %>
+    <div class="card bg-base-100 shadow mb-8">
+      <div class="card-body">
+        <h2 class="card-title text-lg"><%= t("profile.mentor.evaluated_users") %></h2>
+        <% if @evaluated_users.present? %>
+          <ul class="list-disc list-inside space-y-2">
+            <% @evaluated_users.each do |u| %>
+              <li>
+                <%= link_to u.full_name, admin_result_path(u.id), class: "link link-primary" %>
+                <span class="text-base-content/70 text-sm">(<%= u.email %>)</span>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="text-base-content/70"><%= t("profile.no_data") %></p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if current_user.student? %>
+    <p class="text-base-content/70 mb-8"><%= t("profile.subtitle") %></p>
+
+    <div class="card bg-base-100 shadow mb-8">
+      <div class="card-body">
+        <h2 class="card-title text-lg"><%= t("profile.questionnaire") %></h2>
+        <p class="text-base-content/70"><%= t("profile.questionnaire_placeholder") %></p>
+      </div>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
+      <div class="stat bg-base-100 rounded-box shadow">
+        <div class="stat-title"><%= t("profile.stats.completed_quizzes") %></div>
+        <div class="stat-value text-primary"><%= @completed_count %></div>
+      </div>
+      <div class="stat bg-base-100 rounded-box shadow">
+        <div class="stat-title"><%= t("profile.stats.total_answers") %></div>
+        <div class="stat-value"><%= @total_answers %></div>
+      </div>
+      <div class="stat bg-base-100 rounded-box shadow">
+        <div class="stat-title"><%= t("profile.stats.correct_answers") %></div>
+        <div class="stat-value text-success"><%= @correct_answers %></div>
+      </div>
+      <div class="stat bg-base-100 rounded-box shadow">
+        <div class="stat-title"><%= t("profile.stats.correct_percent") %></div>
+        <div class="stat-value"><%= @correct_percent %>%</div>
+      </div>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-2 mb-8">
+      <div class="bg-base-100 rounded-box shadow p-4">
+        <h3 class="font-semibold mb-4"><%= t("profile.charts.correct_vs_incorrect") %></h3>
+        <% if @total_answers.positive? %>
+          <%= pie_chart @correct_vs_incorrect, colors: ["#36d399", "#f87272"] %>
+        <% else %>
+          <p class="text-base-content/70 py-8"><%= t("profile.no_data") %></p>
+        <% end %>
+      </div>
+      <div class="bg-base-100 rounded-box shadow p-4">
+        <h3 class="font-semibold mb-4"><%= t("profile.charts.completed_by_day") %></h3>
+        <% if @completed_count.positive? %>
+          <%= column_chart @completed_by_day, colors: ["#36d399"] %>
+        <% else %>
+          <p class="text-base-content/70 py-8"><%= t("profile.no_data") %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-2">
+      <div class="bg-base-100 rounded-box shadow p-4">
+        <h3 class="font-semibold mb-4"><%= t("profile.charts.answers_by_category") %></h3>
+        <% if @answers_by_category.any? %>
+          <%= bar_chart @answers_by_category, colors: ["#3b82f6"] %>
+        <% else %>
+          <p class="text-base-content/70 py-8"><%= t("profile.no_data") %></p>
+        <% end %>
+      </div>
+      <div class="bg-base-100 rounded-box shadow p-4">
+        <h3 class="font-semibold mb-4"><%= t("profile.charts.correct_by_category") %></h3>
+        <% if @correct_by_category.any? %>
+          <%= bar_chart @correct_by_category, colors: ["#36d399"] %>
+        <% else %>
+          <p class="text-base-content/70 py-8"><%= t("profile.no_data") %></p>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="mt-8 pt-6 border-t border-base-300">
+      <p class="text-sm text-base-content/60"><%= t("profile.footer") %></p>
+    </div>
+  <% end %>
+</div>

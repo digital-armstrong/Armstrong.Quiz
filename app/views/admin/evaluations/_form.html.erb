@@ -1,0 +1,42 @@
+<%= form_with model: evaluation, url: evaluation.persisted? ? admin_evaluation_path(evaluation) : admin_evaluations_path, method: evaluation.persisted? ? :patch : :post, class: "space-y-4" do |f| %>
+  <%= hidden_field_tag :user_id, user.id unless evaluation.persisted? %>
+  <%= render "shared/error_messages", resource: evaluation %>
+
+  <div class="card bg-base-100 shadow">
+    <div class="card-body space-y-4">
+      <h3 class="card-title text-lg"><%= t("admin.evaluations.criteria_title") %></h3>
+      <p class="text-sm text-base-content/70"><%= t("admin.evaluations.criteria_hint") %></p>
+      <div class="space-y-4">
+        <% %i[technical_knowledge argumentation creative_thinking team_collaboration leadership execution quick_learning].each do |attr| %>
+          <div class="form-control">
+            <%= f.label attr, t("admin.evaluations.criteria.#{attr}"), class: "label" %>
+            <%= f.number_field attr, class: "input input-bordered w-full input-no-spinner", min: 1, max: 10, placeholder: "1–10" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-control space-y-4">
+    <%= f.label :comment, t("admin.evaluations.comment_notes"), class: "label" %>
+    <%= f.text_area :comment, rows: 4, class: "textarea textarea-bordered w-full", placeholder: t("admin.evaluations.comment_placeholder") %>
+  </div>
+
+  <div class="card bg-base-100 shadow">
+    <div class="card-body space-y-4">
+      <h3 class="card-title text-lg"><%= t("admin.evaluations.recommendation_title") %></h3>
+      <div class="form-control">
+        <div class="flex flex-wrap gap-4">
+          <% Evaluation::RECOMMENDATIONS.each do |value| %>
+            <label class="label cursor-pointer gap-2">
+              <%= f.radio_button :recommendation, value, class: "radio radio-primary" %>
+              <span><%= t("admin.evaluations.recommendation.#{value}") %></span>
+            </label>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= f.submit (evaluation.persisted? ? t("admin.actions.update") : t("admin.actions.create")), class: "btn btn-primary" %>
+<% end %>

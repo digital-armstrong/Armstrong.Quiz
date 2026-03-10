@@ -1,0 +1,54 @@
+<div class="flex justify-between items-center mb-6">
+  <h1 class="text-3xl font-bold"><%= t("admin.evaluations.index_title") %></h1>
+</div>
+
+<% if @evaluations_by_admin.blank? %>
+  <p class="text-base-content/70"><%= t("admin.results.no_completed_quizzes") %></p>
+<% else %>
+  <div class="space-y-6">
+    <% @evaluations_by_admin.each do |admin_user, evaluations| %>
+      <div class="card bg-base-100 shadow">
+        <div class="card-body">
+          <h2 class="card-title text-xl mb-4">
+            <%= admin_user.full_name %>
+          </h2>
+
+          <div class="overflow-x-auto">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th><%= User.human_attribute_name(:email) %></th>
+                  <th><%= Evaluation.human_attribute_name(:score) %></th>
+                  <th><%= Evaluation.human_attribute_name(:recommendation) %></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% evaluations.each do |evaluation| %>
+                  <tr>
+                    <td><%= evaluation.user.full_name %></td>
+                    <td><%= evaluation.score.presence || "—" %></td>
+                    <td>
+                      <% if evaluation.recommendation.present? %>
+                        <%= t("admin.evaluations.recommendation.#{evaluation.recommendation}") %>
+                      <% else %>
+                        —
+                      <% end %>
+                    </td>
+                    <td class="text-right">
+                      <%= link_to admin_result_path(evaluation.user_id), class: "btn btn-ghost btn-sm gap-1" do %>
+                        <%= heroicon :eye, variant: :mini, options: { class: "w-4 h-4" } %>
+                        <span><%= t("admin.actions.show") %></span>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+

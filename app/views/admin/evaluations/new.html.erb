@@ -1,0 +1,5 @@
+<div class="max-w-xl">
+  <h1 class="text-2xl font-bold mb-6"><%= t("admin.evaluations.new_title", user: @user.full_name) %></h1>
+  <%= render "form", evaluation: @evaluation, user: @user %>
+  <%= link_to t("admin.actions.back"), admin_result_path(@user.id), class: "btn btn-ghost mt-4" %>
+</div>

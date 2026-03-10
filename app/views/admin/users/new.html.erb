@@ -1,0 +1,5 @@
+<div class="max-w-xl">
+  <h1 class="text-3xl font-bold mb-6"><%= t("admin.users.new") %></h1>
+  <%= render "form", user: @user %>
+  <%= link_to t("admin.actions.back"), admin_users_path, class: "btn btn-ghost mt-4" %>
+</div>

@@ -1,0 +1,49 @@
+<div class="flex justify-between items-center mb-6">
+  <h1 class="text-2xl font-bold"><%= @question.title %></h1>
+  <div class="flex gap-2">
+    <%= link_to edit_admin_question_path(@question), class: "btn btn-primary gap-1" do %>
+      <%= heroicon :pencil_square, variant: :mini, options: { class: "w-4 h-4" } %>
+      <span><%= t("admin.actions.edit") %></span>
+    <% end %>
+    <%= link_to new_admin_question_answer_option_path(@question), class: "btn btn-outline gap-1" do %>
+      <%= heroicon :plus_circle, variant: :mini, options: { class: "w-4 h-4" } %>
+      <span><%= t("admin.answer_options.add") %></span>
+    <% end %>
+    <%= link_to admin_questions_path, class: "btn btn-ghost gap-1" do %>
+      <%= heroicon :arrow_uturn_left, variant: :mini, options: { class: "w-4 h-4" } %>
+      <span><%= t("admin.actions.back") %></span>
+    <% end %>
+  </div>
+</div>
+
+<div class="card bg-base-100 shadow-xl mb-6">
+  <div class="card-body">
+    <p class="text-sm text-base-content/70"><%= @question.category.title %> · <%= t("admin.questions.position") %> <%= @question.position %></p>
+    <div class="markdown mt-2"><%= markdown(@question.body) %></div>
+  </div>
+</div>
+
+<h2 class="text-xl font-semibold mb-4"><%= t("admin.answer_options.index_title") %></h2>
+<div class="space-y-3">
+  <% @answer_options.each do |opt| %>
+    <div class="flex items-start justify-between gap-4 p-4 bg-base-100 rounded-box shadow">
+      <div class="markdown flex-1"><%= markdown(opt.body) %></div>
+      <div class="flex items-center gap-2 shrink-0">
+        <% if opt.correct? %>
+          <span class="badge badge-success"><%= t("admin.answer_options.correct") %></span>
+        <% end %>
+        <%= link_to edit_admin_answer_option_path(opt), class: "btn btn-ghost btn-sm gap-1" do %>
+          <%= heroicon :pencil_square, variant: :mini, options: { class: "w-4 h-4" } %>
+          <span><%= t("admin.actions.edit") %></span>
+        <% end %>
+        <%= button_to admin_answer_option_path(opt), method: :delete,
+              params: { question_id: @question.id },
+              form: { data: { turbo_confirm: t("admin.confirm_destroy") } },
+              class: "btn btn-ghost btn-sm text-error gap-1" do %>
+          <%= heroicon :trash, variant: :mini, options: { class: "w-4 h-4" } %>
+          <span><%= t("admin.actions.destroy") %></span>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

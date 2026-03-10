@@ -1,0 +1,19 @@
+<%= form_with model: answer_option, url: answer_option.persisted? ? admin_answer_option_path(answer_option) : admin_question_answer_options_path(question), method: answer_option.persisted? ? :patch : :post, class: "space-y-4" do |f| %>
+  <%= f.hidden_field :question_id, value: question.id if answer_option.new_record? %>
+  <%= render "shared/error_messages", resource: answer_option %>
+  <div class="form-control">
+    <%= f.label :body, class: "label" %>
+    <%= f.text_area :body, rows: 4, class: "textarea textarea-bordered w-full font-mono text-sm" %>
+  </div>
+  <div class="form-control">
+    <label class="label cursor-pointer justify-start gap-2">
+      <%= f.check_box :correct, class: "checkbox checkbox-primary" %>
+      <span class="label-text"><%= t("admin.answer_options.correct") %></span>
+    </label>
+  </div>
+  <div class="form-control">
+    <%= f.label :position, class: "label" %>
+    <%= f.number_field :position, class: "input input-bordered w-full" %>
+  </div>
+  <%= f.submit (answer_option.persisted? ? t("admin.actions.update") : t("admin.actions.create")), class: "btn btn-primary" %>
+<% end %>

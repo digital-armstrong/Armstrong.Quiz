@@ -1,0 +1,11 @@
+<div class="max-w-3xl mx-auto">
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-body">
+      <h1 class="text-3xl font-bold mb-4"><%= t("pages.privacy.title") %></h1>
+      <p class="text-sm opacity-70 mb-4"><%= link_to "← #{t('actions.back')}", :back, class: "link" %></p>
+      <div class="markdown prose max-w-none">
+        <%= markdown(@content) %>
+      </div>
+    </div>
+  </div>
+</div>

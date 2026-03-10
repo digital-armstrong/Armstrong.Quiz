@@ -1,0 +1,14 @@
+{
+  "name": "Armstrong.Quiz",
+  "packageManager": "yarn@4.9.2",
+  "scripts": {
+    "build:css": "tailwindcss -i app/assets/tailwind/application.css -o app/assets/builds/tailwind.css",
+    "watch:css": "tailwindcss -i app/assets/tailwind/application.css -o app/assets/builds/tailwind.css --watch"
+  },
+  "dependencies": {
+    "daisyui": "^5.5.19"
+  },
+  "devDependencies": {
+    "tailwindcss": "4"
+  }
+}

@@ -1,0 +1,36 @@
+<div class="max-w-md mx-auto card bg-base-100 shadow-xl">
+  <div class="card-body">
+    <h2 class="card-title text-2xl"><%= t("devise.sessions.new.sign_in") %></h2>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-4" }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="form-control">
+        <%= f.label :email, class: "label" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input input-bordered w-full" %>
+      </div>
+
+      <div class="form-control">
+        <%= f.label :password, class: "label" %>
+        <%= f.password_field :password, autocomplete: "current-password", class: "input input-bordered w-full" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="form-control">
+          <label class="label cursor-pointer gap-2">
+            <%= f.check_box :remember_me, class: "checkbox checkbox-primary" %>
+            <span class="label-text"><%= f.label :remember_me, class: "" %></span>
+          </label>
+        </div>
+      <% end %>
+
+      <div class="form-control pt-2">
+        <%= f.submit t("devise.sessions.new.sign_in"), class: "btn btn-primary w-full" %>
+      </div>
+    <% end %>
+
+    <p class="mt-4 text-center text-sm text-base-content/70">
+      <%= link_to t("devise.registrations.new.title"), new_user_registration_path, class: "link link-primary" %>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,138 @@
+<div class="flex justify-between items-center mb-6">
+  <h1 class="text-3xl font-bold"><%= @user.full_name %></h1>
+  <div class="flex gap-2">
+    <% already_evaluated = @user.evaluations_received.exists?(admin_id: current_user.id) %>
+    <% if already_evaluated %>
+      <button class="btn btn-ghost gap-1 btn-disabled" disabled>
+        <%= heroicon :pencil_square, variant: :mini, options: { class: "w-4 h-4" } %>
+        <span><%= t("admin.results.evaluate") %></span>
+      </button>
+    <% else %>
+      <%= link_to admin_new_user_evaluation_path(user_id: @user.id), class: "btn btn-primary gap-1" do %>
+        <%= heroicon :pencil_square, variant: :mini, options: { class: "w-4 h-4" } %>
+        <span><%= t("admin.results.evaluate") %></span>
+      <% end %>
+    <% end %>
+    <%= link_to admin_results_path, class: "btn btn-ghost gap-1" do %>
+      <%= heroicon :arrow_uturn_left, variant: :mini, options: { class: "w-4 h-4" } %>
+      <span><%= t("admin.actions.back") %></span>
+    <% end %>
+  </div>
+</div>
+
+<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
+  <div class="stat bg-base-100 rounded-box shadow">
+    <div class="stat-title"><%= t("admin.results.user_stats.completed_quizzes") %></div>
+    <div class="stat-value text-primary"><%= @completed_count %></div>
+  </div>
+  <div class="stat bg-base-100 rounded-box shadow">
+    <div class="stat-title"><%= t("admin.results.user_stats.awaiting_review") %></div>
+    <div class="stat-value"><%= @pending_answers_count %></div>
+  </div>
+  <div class="stat bg-base-100 rounded-box shadow">
+    <div class="stat-title"><%= t("admin.results.user_stats.correct_answers") %></div>
+    <div class="stat-value text-success"><%= @correct_answers %></div>
+  </div>
+  <div class="stat bg-base-100 rounded-box shadow">
+    <div class="stat-title"><%= t("admin.results.user_stats.correct_percent") %></div>
+    <div class="stat-value"><%= @correct_percent %>%</div>
+  </div>
+</div>
+
+<div class="grid gap-8 md:grid-cols-2 mb-8">
+  <div class="bg-base-100 rounded-box shadow p-4">
+    <h3 class="font-semibold mb-4"><%= t("admin.results.charts.correct_vs_incorrect") %></h3>
+    <% if @total_answers.positive? %>
+      <%= pie_chart @correct_vs_incorrect, colors: ["#36d399", "#f87272"] %>
+    <% else %>
+      <p class="text-base-content/70"><%= t("admin.dashboard.no_data") %></p>
+    <% end %>
+  </div>
+  <% if @answers_percent_by_category.any? %>
+    <div class="bg-base-100 rounded-box shadow p-4">
+      <h3 class="font-semibold mb-4"><%= t("admin.results.charts.answers_percent_by_category") %></h3>
+      <%= bar_chart @answers_percent_by_category, colors: ["#3b82f6"], max: 100, suffix: "%" %>
+    </div>
+  <% end %>
+</div>
+
+<% if @latest_attempt.nil? %>
+  <p class="text-base-content/70"><%= t("admin.results.no_completed_quizzes") %></p>
+<% else %>
+  <% if @latest_attempt %>
+    <div class="card bg-base-100 shadow-xl mb-6">
+      <div class="card-body">
+        <h2 class="card-title"><%= t("admin.results.latest_attempt") %></h2>
+        <p class="text-sm"><%= t("admin.results.completed_at") %> <%= l(@latest_attempt.completed_at, format: :long) %></p>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @user_answers_by_category.any? %>
+    <div class="space-y-8">
+      <% @user_answers_by_category.each do |category, answers| %>
+        <div>
+          <h2 class="text-xl font-semibold mb-4 pb-2 border-b border-base-300"><%= category.title %></h2>
+          <div class="space-y-4">
+            <% answers.each do |ua| %>
+              <div class="card bg-base-100 shadow">
+                <div class="card-body">
+                  <h3 class="font-semibold"><%= ua.question.title %></h3>
+                  <% if ua.answer_option %>
+                    <div class="markdown text-sm"><%= markdown(ua.answer_option.body) %></div>
+                    <% if ua.answer_option.correct? %>
+                      <span class="badge badge-success"><%= t("admin.dashboard.correct") %></span>
+                    <% else %>
+                      <span class="badge badge-error"><%= t("admin.dashboard.incorrect") %></span>
+                    <% end %>
+                    <% if ua.comment.present? %>
+                      <p class="text-sm mt-2"><strong><%= t("admin.results.comment") %>:</strong> <%= ua.comment %></p>
+                    <% end %>
+                  <% else %>
+                    <p class="text-sm"><strong><%= t("admin.results.answer_in_words") %>:</strong> <%= ua.comment.presence || "—" %></p>
+                    <% if ua.admin_correct.nil? %>
+                      <p class="text-warning text-sm mt-2"><%= t("admin.results.awaiting_approval") %></p>
+                      <div class="flex gap-2 mt-2">
+                        <%= button_to t("admin.dashboard.correct"), admin_user_answer_path(ua), method: :patch, params: { user_answer: { admin_correct: true } }, class: "btn btn-success btn-sm" %>
+                        <%= button_to t("admin.dashboard.incorrect"), admin_user_answer_path(ua), method: :patch, params: { user_answer: { admin_correct: false } }, class: "btn btn-error btn-sm" %>
+                      </div>
+                    <% else %>
+                      <% if ua.admin_correct? %>
+                        <span class="badge badge-success"><%= t("admin.dashboard.correct") %></span>
+                      <% else %>
+                        <span class="badge badge-error"><%= t("admin.dashboard.incorrect") %></span>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+<% if @user.evaluations_received.any? %>
+  <div class="mt-8">
+    <h2 class="text-xl font-semibold mb-4"><%= t("admin.evaluations.index_title") %></h2>
+    <% @user.evaluations_received.each do |e| %>
+      <div class="p-4 bg-base-100 rounded-box shadow mb-2">
+        <p class="text-sm text-base-content/70 mb-1">
+          <%= t("admin.evaluations.by_admin") %>: <strong><%= e.admin.full_name %></strong>
+        </p>
+        <% if e.recommendation.present? %>
+          <p class="font-medium"><%= t("admin.evaluations.recommendation_title") %>: <%= t("admin.evaluations.recommendation.#{e.recommendation}") %></p>
+        <% end %>
+        <% if e.comment.present? %>
+          <p class="text-sm mt-1"><%= e.comment %></p>
+        <% end %>
+        <%= link_to edit_admin_evaluation_path(e), class: "btn btn-ghost btn-sm mt-2 gap-1" do %>
+          <%= heroicon :pencil_square, variant: :mini, options: { class: "w-4 h-4" } %>
+          <span><%= t("admin.actions.edit") %></span>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

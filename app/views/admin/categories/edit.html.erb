@@ -1,0 +1,5 @@
+<div class="max-w-xl">
+  <h1 class="text-3xl font-bold mb-6"><%= t("admin.categories.edit") %></h1>
+  <%= render "form", category: @category, url: admin_category_path(@category) %>
+  <%= link_to t("admin.actions.back"), admin_category_path(@category), class: "btn btn-ghost mt-4" %>
+</div>

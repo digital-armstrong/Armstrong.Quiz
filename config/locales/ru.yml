@@ -1,0 +1,308 @@
+ru:
+  hello: "Привет, мир"
+
+  date:
+    month_names: [~, Январь, Февраль, Март, Апрель, Май, Июнь, Июль, Август, Сентябрь, Октябрь, Ноябрь, Декабрь]
+    abbr_month_names: [~, янв., февр., март, апр., май, июнь, июль, авг., сент., окт., нояб., дек.]
+    formats:
+      default: "%d.%m.%Y"
+      short: "%d %b"
+      long: "%d %B %Y"
+
+  time:
+    formats:
+      default: "%d.%m.%Y, %H:%M"
+      short: "%d %b, %H:%M"
+      long: "%d %B %Y, %H:%M"
+
+  nav:
+    privacy: "Конфиденциальность"
+    sign_in: "Войти"
+    sign_up: "Регистрация"
+    profile: "Профиль"
+    admin: "Админ-панель"
+    logout: "Выйти"
+
+  profile:
+    title: "Мой профиль"
+    fio: "ФИО"
+    subtitle: "Ваша статистика по квизам и ответам."
+    no_data: "Пока нет данных."
+    footer: "Позже здесь можно будет заполнять анкеты по шаблону."
+    questionnaire: "Анкета"
+    questionnaire_placeholder: "Раздел анкеты будет добавлен позже."
+    mentor:
+      evaluated_users: "Оценённые вами пользователи"
+    stats:
+      completed_quizzes: "Завершённых квизов"
+      total_answers: "Всего ответов"
+      correct_answers: "Правильных ответов"
+      correct_percent: "Доля правильных %"
+    charts:
+      correct_vs_incorrect: "Правильные и неправильные ответы"
+      completed_by_day: "Завершённые квизы по дням"
+      answers_by_category: "Ответы по категориям"
+      correct_by_category: "Правильные ответы по категориям"
+      correct: "Правильно"
+      incorrect: "Неправильно"
+
+  pages:
+    privacy:
+      title: "Персональные данные"
+
+  pundit:
+    not_authorized: "У вас нет прав для этого действия."
+
+  home:
+    subtitle: "Квиз для студентов. Пройдите квиз и получите оценку."
+    start_quiz: "Начать квиз"
+    categories_title: "Категории квизов"
+    category_completed: "Пройден"
+    category_no_questions: "В этой категории пока нет вопросов."
+    questions_count:
+      one: "%{count} вопрос"
+      few: "%{count} вопроса"
+      many: "%{count} вопросов"
+      other: "%{count} вопросов"
+
+  quiz:
+    started: "Квиз начат."
+    already_started: "У вас уже есть активный квиз. Продолжаем."
+    choose_category: "Выберите категорию на главной странице."
+    category_not_found: "Категория не найдена."
+    category_no_questions: "В этой категории нет вопросов."
+    category_already_completed: "Вы уже проходили квиз в этой категории."
+    answer_saved: "Ответ сохранён."
+    start_title: "Готовы начать?"
+    start_description: "Вы будете проходить вопросы по одному. К каждому ответу можно добавить комментарий (необязательно)."
+    start_button: "Начать квиз"
+    choose_answer: "Выберите один ответ"
+    answer_in_words: "Напишите ответ словами"
+    answer_in_words_placeholder: "Введите ваш ответ..."
+    comment_optional: "Комментарий (необязательно)"
+    comment_placeholder: "Ваш комментарий..."
+    next_button: "Дальше"
+    thank_you_title: "Спасибо за прохождение квиза"
+    thank_you_message: "Вы прошли квиз. Ваши ответы сохранены."
+    back_home: "Вернуться на главную"
+    no_active_attempt: "Нет активной попытки прохождения квиза."
+
+  actions:
+    back: "Назад"
+    create: "Создать"
+    update: "Сохранить"
+
+  admin:
+    actions:
+      show: "Просмотр"
+      edit: "Изменить"
+      destroy: "Удалить"
+      back: "Назад"
+      create: "Создать"
+      update: "Сохранить"
+    confirm_destroy: "Вы уверены?"
+    categories:
+      index_title: "Категории"
+      new: "Новая категория"
+      edit: "Изменить категорию"
+      questions_count: "вопросов"
+    questions:
+      index_title: "Вопросы"
+      new: "Новый вопрос"
+      edit: "Изменить вопрос"
+      position: "Позиция"
+    answer_options:
+      index_title: "Варианты ответов"
+      add: "Добавить вариант"
+      new: "Новый вариант ответа"
+      edit: "Изменить вариант"
+      correct: "Верный"
+      option: "Вариант"
+      remove: "Удалить"
+      body: "Текст"
+      body_placeholder: "Текст ответа (поддерживается Markdown)"
+      created: "Вариант ответа создан."
+      updated: "Вариант ответа обновлён."
+      destroyed: "Вариант ответа удалён."
+    dashboard:
+      students: "Студенты"
+      completed_quizzes: "Завершённых квизов"
+      correct_percent: "Правильных %"
+      total_answers: "Всего ответов"
+      completed_quizzes_chart: "Завершённые квизы по дням"
+      correct_answers_chart: "Правильные и неправильные ответы"
+      correct: "Правильно"
+      incorrect: "Неправильно"
+      no_data: "Пока нет данных."
+    nav:
+      users: "Пользователи"
+      categories: "Категории"
+      questions: "Вопросы"
+      results: "Результаты"
+      evaluations: "Оценки"
+      logout: "Выйти"
+    categories:
+      created: "Категория успешно создана."
+      updated: "Категория успешно обновлена."
+      destroyed: "Категория удалена."
+    questions:
+      created: "Вопрос успешно создан."
+      updated: "Вопрос успешно обновлён."
+      destroyed: "Вопрос удалён."
+    users:
+      index_title: "Пользователи"
+      new: "Новый пользователь"
+      edit: "Изменить пользователя"
+      email: "Email"
+      name: "ФИО"
+      role: "Роль"
+      state: "Статус"
+      states:
+        active: "Активный"
+        archived: "Архивирован"
+        banned: "Заблокирован"
+      roles:
+        student: "Студент"
+        mentor: "Наставник"
+        admin: "Администратор"
+      archive: "В архив"
+      ban: "Заблокировать"
+      activate: "Активировать"
+      created: "Пользователь создан."
+      updated: "Пользователь обновлён."
+      destroyed: "Пользователь удалён."
+      banned: "Пользователь заблокирован."
+      archived: "Пользователь архивирован."
+      activated: "Пользователь активирован."
+    evaluations:
+      created: "Оценка создана."
+      updated: "Оценка обновлена."
+      criteria_title: "Критерии оценки (1–10 баллов)"
+      criteria_hint: "Оцените по шкале от 1 до 10."
+      criteria:
+        technical_knowledge: "Технические знания"
+        argumentation: "Аргументация позиции"
+        creative_thinking: "Креативное мышление"
+        team_collaboration: "Командное взаимодействие"
+        leadership: "Лидерские качества"
+        execution: "Исполнительские качества"
+        quick_learning: "Способность быстро вникать"
+      comment_notes: "Комментарии и заметки"
+      comment_placeholder: "Дополнительные комментарии..."
+      recommendation_title: "Рекомендации по дальнейшему взаимодействию"
+      index_title: "Оценки"
+      by_admin: "Оценку оставил"
+      recommendation:
+        ready: "Готов брать"
+        prospective: "На перспективу"
+        not_suitable: "Не подходит"
+    user_answers:
+      updated: "Ответ отмечен."
+    results:
+      title: "Результаты"
+      evaluate: "Оценить"
+      no_completed_quizzes: "Нет завершённых квизов."
+      latest_attempt: "Последняя попытка"
+      completed_at: "Завершено"
+      comment: "Комментарий"
+      answer_in_words: "Ответ словами"
+      awaiting_approval: "Ожидает одобрения администратора."
+      stats:
+        students: "Студенты"
+        completed_quizzes: "Завершённых квизов"
+        total_answers: "Всего ответов"
+        correct_percent: "Правильных %"
+      table:
+        student: "Студент"
+        completed_quizzes: "Завершено квизов"
+        correct_percent: "Правильных %"
+      user_stats:
+        completed_quizzes: "Завершённых квизов"
+        total_answers: "Всего ответов"
+        awaiting_review: "Ожидают оценки"
+        correct_answers: "Правильных ответов"
+        correct_percent: "Правильных %"
+      charts:
+        correct_vs_incorrect: "Правильные и неправильные ответы"
+        completed_by_day: "Завершённые квизы по дням"
+        students_correct_percent: "Студенты: процент правильных ответов"
+        answers_by_category: "Ответы по категориям"
+        answers_percent_by_category: "Ответы по категориям, % правильных"
+        correct_by_category: "Правильные ответы по категориям"
+
+  activerecord:
+    errors:
+      models:
+        quiz_attempt:
+          one_active_attempt: "У вас уже есть активная попытка прохождения квиза."
+          category_already_completed: "Вы уже проходили квиз в этой категории."
+    models:
+      category: "Категория"
+      question: "Вопрос"
+      answer_option: "Вариант ответа"
+      quiz_attempt: "Попытка квиза"
+      user_answer: "Ответ пользователя"
+      user: "Пользователь"
+      evaluation: "Оценка"
+      profile: "Профиль"
+    attributes:
+      category:
+        title: "Название"
+        description: "Описание"
+      question:
+        title: "Заголовок"
+        body: "Текст вопроса"
+        position: "Позиция"
+        category: "Категория"
+        category_id: "Категория"
+      answer_option:
+        body: "Текст ответа"
+        position: "Позиция"
+        correct: "Верный"
+        question: "Вопрос"
+        question_id: "Вопрос"
+      quiz_attempt:
+        user: "Пользователь"
+        user_id: "Пользователь"
+        category: "Категория"
+        category_id: "Категория"
+        completed: "Завершено"
+        completed_at: "Дата завершения"
+      user_answer:
+        quiz_attempt: "Попытка"
+        quiz_attempt_id: "Попытка"
+        question: "Вопрос"
+        question_id: "Вопрос"
+        answer_option: "Вариант ответа"
+        answer_option_id: "Вариант ответа"
+        comment: "Комментарий"
+        admin_correct: "Оценка администратора"
+      evaluation:
+        user: "Студент"
+        user_id: "Студент"
+        admin: "Администратор"
+        admin_id: "Администратор"
+        score: "Сводная оценка"
+        technical_knowledge: "Технические знания"
+        argumentation: "Аргументация позиции"
+        creative_thinking: "Креативное мышление"
+        team_collaboration: "Командное взаимодействие"
+        leadership: "Лидерские качества"
+        execution: "Исполнительские качества"
+        quick_learning: "Способность быстро вникать"
+        comment: "Комментарии и заметки"
+        recommendation: "Рекомендация"
+      profile:
+        first_name: "Имя"
+        last_name: "Фамилия"
+        middle_name: "Отчество"
+        middle_name_optional: "необязательно"
+      user:
+        email: "Email"
+        password: "Пароль"
+        password_confirmation: "Подтверждение пароля"
+        remember_me: "Запомнить меня"
+        current_password: "Текущий пароль"
+        consent_to_personal_data: "Согласие на обработку персональных данных"
+        role: "Роль"
+        state: "Статус"

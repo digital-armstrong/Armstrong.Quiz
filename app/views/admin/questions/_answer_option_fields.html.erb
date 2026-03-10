@@ -1,0 +1,17 @@
+<div data-option-row class="card bg-base-200 p-4 rounded-lg flex flex-col gap-3">
+  <div class="flex justify-between items-start gap-2">
+    <span class="text-sm font-medium text-base-content/70"><%= t("admin.answer_options.option") %> <%= index.to_i + 1 %></span>
+    <button type="button" class="btn btn-ghost btn-xs text-error" onclick="this.closest('[data-option-row]').remove()">
+      <%= t("admin.answer_options.remove") %>
+    </button>
+  </div>
+  <div class="form-control">
+    <label class="label py-0"><span class="label-text"><%= t("admin.answer_options.body") %></span></label>
+    <textarea name="question[answer_options_attributes][<%= index %>][body]" rows="2" class="textarea textarea-bordered w-full text-sm" placeholder="<%= t("admin.answer_options.body_placeholder") %>"></textarea>
+  </div>
+  <label class="label cursor-pointer justify-start gap-2 py-0">
+    <input type="hidden" name="question[answer_options_attributes][<%= index %>][correct]" value="0">
+    <input type="checkbox" name="question[answer_options_attributes][<%= index %>][correct]" value="1" class="checkbox checkbox-primary checkbox-sm">
+    <span class="label-text"><%= t("admin.answer_options.correct") %></span>
+  </label>
+</div>

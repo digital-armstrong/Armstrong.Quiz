@@ -1,0 +1,319 @@
+# Files in the config/locales directory are used for internationalization and
+# are automatically loaded by Rails. If you want to use locales other than
+# English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t "hello"
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t("hello") %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more about the API, please read the Rails Internationalization guide
+# at https://guides.rubyonrails.org/i18n.html.
+#
+# Be aware that YAML interprets the following case-insensitive strings as
+# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
+# must be quoted to be interpreted as strings. For example:
+#
+#     en:
+#       "yes": yup
+#       enabled: "ON"
+
+en:
+  hello: "Hello world"
+
+  nav:
+    privacy: "Privacy"
+    sign_in: "Sign in"
+    sign_up: "Sign up"
+    profile: "Profile"
+    admin: "Admin"
+    logout: "Log out"
+
+  profile:
+    title: "My profile"
+    fio: "Full name"
+    subtitle: "Your quiz and answer statistics."
+    no_data: "No data yet."
+    footer: "Surveys by template will be available here later."
+    questionnaire: "Questionnaire"
+    questionnaire_placeholder: "Questionnaire section will be added later."
+    mentor:
+      evaluated_users: "Users you have evaluated"
+    stats:
+      completed_quizzes: "Completed quizzes"
+      total_answers: "Total answers"
+      correct_answers: "Correct answers"
+      correct_percent: "Correct %"
+    charts:
+      correct_vs_incorrect: "Correct vs incorrect answers"
+      completed_by_day: "Completed quizzes by day"
+      answers_by_category: "Answers by category"
+      correct_by_category: "Correct answers by category"
+      correct: "Correct"
+      incorrect: "Incorrect"
+
+  pages:
+    privacy:
+      title: "Privacy & Personal Data"
+
+  pundit:
+    not_authorized: "You are not authorized to perform this action."
+
+  home:
+    subtitle: "Quiz for students. Pass the quiz and get evaluated."
+    start_quiz: "Start quiz"
+    categories_title: "Quiz categories"
+    category_completed: "Completed"
+    category_no_questions: "No questions in this category yet."
+    questions_count: "%{count} questions"
+
+  quiz:
+    started: "Quiz started."
+    already_started: "You already have an active quiz. Continuing."
+    choose_category: "Choose a category on the home page."
+    category_not_found: "Category not found."
+    category_no_questions: "This category has no questions."
+    category_already_completed: "You have already completed the quiz in this category."
+    answer_saved: "Answer saved."
+    start_title: "Ready to start?"
+    start_description: "You will go through the questions one by one. You can add an optional comment to each answer."
+    start_button: "Start quiz"
+    choose_answer: "Choose one answer"
+    answer_in_words: "Write your answer in words"
+    answer_in_words_placeholder: "Enter your answer..."
+    comment_optional: "Comment (optional)"
+    comment_placeholder: "Your comment..."
+    next_button: "Next"
+    thank_you_title: "Thank you for completing the quiz"
+    thank_you_message: "You have completed the quiz. Your answers have been saved."
+    back_home: "Back to home"
+    no_active_attempt: "No active quiz attempt."
+
+  actions:
+    back: "Back"
+    create: "Create"
+    update: "Save"
+
+  admin:
+    actions:
+      show: "Show"
+      edit: "Edit"
+      destroy: "Destroy"
+      back: "Back"
+      create: "Create"
+      update: "Save"
+    confirm_destroy: "Are you sure?"
+    categories:
+      index_title: "Categories"
+      new: "New category"
+      edit: "Edit category"
+      questions_count: "questions"
+    questions:
+      index_title: "Questions"
+      new: "New question"
+      edit: "Edit question"
+      position: "Position"
+    answer_options:
+      index_title: "Answer options"
+      add: "Add option"
+      new: "New answer option"
+      edit: "Edit answer option"
+      correct: "Correct"
+      option: "Option"
+      remove: "Remove"
+      body: "Text"
+      body_placeholder: "Answer text (Markdown supported)"
+      created: "Answer option was successfully created."
+      updated: "Answer option was successfully updated."
+      destroyed: "Answer option was successfully destroyed."
+    dashboard:
+      students: "Students"
+      completed_quizzes: "Completed quizzes"
+      correct_percent: "Correct %"
+      total_answers: "Total answers"
+      completed_quizzes_chart: "Completed quizzes by day"
+      correct_answers_chart: "Correct vs incorrect answers"
+      correct: "Correct"
+      incorrect: "Incorrect"
+      no_data: "No data yet."
+    nav:
+      users: "Users"
+      categories: "Categories"
+      questions: "Questions"
+      results: "Results"
+      evaluations: "Evaluations"
+      logout: "Log out"
+    categories:
+      created: "Category was successfully created."
+      updated: "Category was successfully updated."
+      destroyed: "Category was successfully destroyed."
+    questions:
+      created: "Question was successfully created."
+      updated: "Question was successfully updated."
+      destroyed: "Question was successfully destroyed."
+    users:
+      index_title: "Users"
+      new: "New user"
+      edit: "Edit user"
+      email: "Email"
+      name: "Full name"
+      role: "Role"
+      state: "State"
+      states:
+        active: "Active"
+        archived: "Archived"
+        banned: "Banned"
+      roles:
+        student: "Student"
+        mentor: "Mentor"
+        admin: "Administrator"
+      archive: "Archive"
+      ban: "Ban"
+      activate: "Activate"
+      created: "User was created."
+      updated: "User was updated."
+      destroyed: "User was deleted."
+      banned: "User was banned."
+      archived: "User was archived."
+      activated: "User was activated."
+    evaluations:
+      created: "Evaluation was successfully created."
+      updated: "Evaluation was successfully updated."
+      criteria_title: "Evaluation criteria (1–10 points)"
+      criteria_hint: "Rate from 1 to 10."
+      criteria:
+        technical_knowledge: "Technical knowledge"
+        argumentation: "Argumentation"
+        creative_thinking: "Creative thinking"
+        team_collaboration: "Team collaboration"
+        leadership: "Leadership"
+        execution: "Execution / Performance"
+        quick_learning: "Ability to get up to speed quickly"
+      comment_notes: "Comments and notes"
+      comment_placeholder: "Additional comments..."
+      recommendation_title: "Recommendations for further interaction"
+      index_title: "Evaluations"
+      by_admin: "Given by"
+      recommendation:
+        ready: "Ready to take"
+        prospective: "For the future"
+        not_suitable: "Not suitable"
+    user_answers:
+      updated: "Answer marked."
+    results:
+      title: "Results"
+      evaluate: "Evaluate"
+      no_completed_quizzes: "No completed quizzes yet."
+      latest_attempt: "Latest attempt"
+      completed_at: "Completed at"
+      comment: "Comment"
+      answer_in_words: "Answer in words"
+      awaiting_approval: "Awaiting admin approval."
+      stats:
+        students: "Students"
+        completed_quizzes: "Completed quizzes"
+        total_answers: "Total answers"
+        correct_percent: "Correct %"
+      table:
+        student: "Student"
+        completed_quizzes: "Completed quizzes"
+        correct_percent: "Correct %"
+      user_stats:
+        completed_quizzes: "Completed quizzes"
+        total_answers: "Total answers"
+        awaiting_review: "Awaiting review"
+        correct_answers: "Correct answers"
+        correct_percent: "Correct %"
+      charts:
+        correct_vs_incorrect: "Correct vs incorrect answers"
+        completed_by_day: "Completed quizzes by day"
+        students_correct_percent: "Students: correct answer %"
+        answers_by_category: "Answers by category"
+        answers_percent_by_category: "Answers by category, % correct"
+        correct_by_category: "Correct answers by category"
+
+  activerecord:
+    errors:
+      models:
+        quiz_attempt:
+          one_active_attempt: "You already have an active quiz attempt."
+          category_already_completed: "You have already completed the quiz in this category."
+    models:
+      category: "Category"
+      question: "Question"
+      answer_option: "Answer option"
+      quiz_attempt: "Quiz attempt"
+      user_answer: "User answer"
+      user: "User"
+      evaluation: "Evaluation"
+      profile: "Profile"
+    attributes:
+      category:
+        title: "Title"
+        description: "Description"
+      question:
+        title: "Title"
+        body: "Question text"
+        position: "Position"
+        category: "Category"
+        category_id: "Category"
+      answer_option:
+        body: "Answer text"
+        position: "Position"
+        correct: "Correct"
+        question: "Question"
+        question_id: "Question"
+      quiz_attempt:
+        user: "User"
+        user_id: "User"
+        category: "Category"
+        category_id: "Category"
+        completed: "Completed"
+        completed_at: "Completed at"
+      user_answer:
+        quiz_attempt: "Attempt"
+        quiz_attempt_id: "Attempt"
+        question: "Question"
+        question_id: "Question"
+        answer_option: "Answer option"
+        answer_option_id: "Answer option"
+        comment: "Comment"
+        admin_correct: "Admin review"
+      evaluation:
+        user: "Student"
+        user_id: "Student"
+        admin: "Administrator"
+        admin_id: "Administrator"
+        score: "Overall score"
+        technical_knowledge: "Technical knowledge"
+        argumentation: "Argumentation"
+        creative_thinking: "Creative thinking"
+        team_collaboration: "Team collaboration"
+        leadership: "Leadership"
+        execution: "Execution / performance"
+        quick_learning: "Ability to learn quickly"
+        comment: "Comments and notes"
+        recommendation: "Recommendation"
+      profile:
+        first_name: "First name"
+        last_name: "Last name"
+        middle_name: "Middle name"
+        middle_name_optional: "optional"
+      user:
+        email: "Email"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        remember_me: "Remember me"
+        current_password: "Current password"
+        consent_to_personal_data: "Consent to personal data processing"
+        role: "Role"
+        state: "State"

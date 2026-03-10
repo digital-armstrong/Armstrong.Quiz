@@ -1,0 +1,5 @@
+<div class="max-w-xl">
+  <h1 class="text-3xl font-bold mb-6"><%= t("admin.questions.new") %></h1>
+  <%= render "form", question: @question, url: admin_questions_path %>
+  <%= link_to t("admin.actions.back"), admin_questions_path, class: "btn btn-ghost mt-4" %>
+</div>

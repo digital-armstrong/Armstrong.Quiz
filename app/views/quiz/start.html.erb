@@ -1,0 +1,7 @@
+<div class="max-w-2xl mx-auto card bg-base-100 shadow-xl">
+  <div class="card-body">
+    <h2 class="card-title text-2xl"><%= t("quiz.start_title") %></h2>
+    <p class="text-base-content/80"><%= t("quiz.start_description") %></p>
+    <%= button_to t("quiz.start_button"), quiz_path, method: :post, class: "btn btn-primary mt-4" %>
+  </div>
+</div>

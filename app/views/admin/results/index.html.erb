@@ -1,0 +1,82 @@
+<h1 class="text-3xl font-bold mb-6"><%= t("admin.results.title") %></h1>
+
+<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
+  <div class="stat bg-base-100 rounded-box shadow">
+    <div class="stat-title"><%= t("admin.results.stats.students") %></div>
+    <div class="stat-value"><%= @students.size %></div>
+  </div>
+  <div class="stat bg-base-100 rounded-box shadow">
+    <div class="stat-title"><%= t("admin.results.stats.completed_quizzes") %></div>
+    <div class="stat-value"><%= @overall_completed %></div>
+  </div>
+  <div class="stat bg-base-100 rounded-box shadow">
+    <div class="stat-title"><%= t("admin.results.stats.total_answers") %></div>
+    <div class="stat-value"><%= @overall_total_answers %></div>
+  </div>
+  <div class="stat bg-base-100 rounded-box shadow">
+    <div class="stat-title"><%= t("admin.results.stats.correct_percent") %></div>
+    <div class="stat-value"><%= @overall_correct_percent %>%</div>
+  </div>
+</div>
+
+<div class="grid gap-8 md:grid-cols-2 mb-8">
+  <div class="bg-base-100 rounded-box shadow p-4">
+    <h3 class="font-semibold mb-4"><%= t("admin.results.charts.correct_vs_incorrect") %></h3>
+    <% if @overall_total_answers.positive? %>
+      <%= pie_chart @overall_correct_vs_incorrect, colors: ["#36d399", "#f87272"] %>
+    <% else %>
+      <p class="text-base-content/70"><%= t("admin.dashboard.no_data") %></p>
+    <% end %>
+  </div>
+  <div class="bg-base-100 rounded-box shadow p-4">
+    <h3 class="font-semibold mb-4"><%= t("admin.results.charts.students_correct_percent") %></h3>
+    <% if @students_correct_percent.any? %>
+      <%= bar_chart @students_correct_percent, colors: ["#36d399"], max: 100, suffix: "%" %>
+    <% else %>
+      <p class="text-base-content/70"><%= t("admin.dashboard.no_data") %></p>
+    <% end %>
+  </div>
+</div>
+
+<div class="overflow-x-auto bg-base-100 rounded-box shadow">
+  <table class="table">
+    <thead>
+      <tr>
+        <th><%= t("admin.results.table.student") %></th>
+        <th><%= t("admin.results.table.completed_quizzes") %></th>
+        <th><%= t("admin.results.table.correct_percent") %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @students.each do |user| %>
+        <% total = @total_countable_by_user[user.id] || 0 %>
+        <% correct = @correct_answers_by_user[user.id] || 0 %>
+        <% percent = total.positive? ? (correct.to_f / total * 100).round(1) : 0 %>
+        <tr>
+          <td><%= user.full_name %></td>
+          <td><%= @attempts_by_user[user.id] || 0 %></td>
+          <td><%= percent %>%</td>
+          <td>
+          <% already_evaluated = Evaluation.exists?(user_id: user.id, admin_id: current_user.id) %>
+            <%= link_to admin_result_path(user.id), class: "btn btn-ghost btn-sm gap-1" do %>
+              <%= heroicon :eye, variant: :mini, options: { class: "w-4 h-4" } %>
+              <span><%= t("admin.actions.show") %></span>
+            <% end %>
+          <% if already_evaluated %>
+            <button class="btn btn-ghost btn-sm gap-1 btn-disabled" disabled>
+              <%= heroicon :pencil_square, variant: :mini, options: { class: "w-4 h-4" } %>
+              <span><%= t("admin.results.evaluate") %></span>
+            </button>
+          <% else %>
+            <%= link_to admin_new_user_evaluation_path(user_id: user.id), class: "btn btn-primary btn-sm gap-1" do %>
+              <%= heroicon :pencil_square, variant: :mini, options: { class: "w-4 h-4" } %>
+              <span><%= t("admin.results.evaluate") %></span>
+            <% end %>
+          <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,121 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: lofi --default, dark --prefersdark, light;
+}
+
+/* Markdown styles – wrap content in .markdown */
+.markdown h1 {
+  @apply text-4xl font-bold my-4;
+}
+
+.markdown h2 {
+  @apply text-3xl font-bold my-4;
+}
+
+.markdown h3 {
+  @apply text-2xl font-bold my-4;
+}
+
+.markdown h4 {
+  @apply text-xl font-bold my-4;
+}
+
+.markdown h5 {
+  @apply text-lg font-bold my-4;
+}
+
+.markdown h6 {
+  @apply text-base font-bold my-4;
+}
+
+.markdown pre {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: #0f172a;
+  color: #e2e8f0;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.markdown p {
+  margin-bottom: 1rem;
+}
+
+.markdown ul {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.markdown ul li::before {
+  content: "•";
+  color: #2563eb;
+  display: inline-block;
+  width: 1rem;
+  margin-left: -1rem;
+}
+
+.markdown ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  counter-reset: item;
+}
+
+.markdown ol li {
+  counter-increment: item;
+  margin-bottom: 0.5rem;
+}
+
+.markdown ol li::before {
+  content: counter(item) ".";
+  color: #2563eb;
+  display: inline-block;
+  width: 1rem;
+  margin-left: -1rem;
+}
+
+.markdown table {
+  @apply table my-4;
+}
+
+.markdown tbody {
+  counter-reset: row;
+}
+
+.markdown tbody tr {
+  counter-increment: row;
+}
+
+.markdown tbody tr td:first-child {
+  @apply relative pl-10;
+}
+
+.markdown tbody tr td:first-child::before {
+  content: counter(row);
+  @apply absolute left-2 text-xs text-gray-500;
+}
+
+.markdown thead th:first-child {
+  @apply pl-10;
+}
+
+.markdown hr {
+  @apply my-6 border-t border-gray-300;
+}
+
+.markdown blockquote {
+  @apply my-4 p-4 rounded-lg bg-base-200 border-l-4 border-primary text-base-content;
+}
+
+.markdown blockquote p {
+  @apply m-0;
+}
+
+/* Убираем стрелки у полей number */
+.input-no-spinner::-webkit-outer-spin-button,
+.input-no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.input-no-spinner {
+  -moz-appearance: textfield;
+}

@@ -1,0 +1,39 @@
+<%= turbo_frame_tag "quiz_question" do %>
+  <div class="max-w-3xl mx-auto card bg-base-100 shadow-xl">
+    <div class="card-body">
+      <h2 class="card-title text-xl"><%= @question.title %></h2>
+      <div class="markdown prose max-w-none">
+        <%= markdown(@question.body) %>
+      </div>
+
+      <%= form_with url: answer_quiz_path, method: :post, local: true, class: "space-y-4 mt-6" do |f| %>
+        <%= hidden_field_tag :question_id, @question.id %>
+        <% if @answer_options.any? %>
+          <div class="form-control">
+            <fieldset class="flex flex-col gap-2">
+              <legend class="label text-base font-semibold"><%= t("quiz.choose_answer") %></legend>
+              <% @answer_options.each do |option| %>
+                <label class="label cursor-pointer justify-start gap-3 p-3 rounded-lg border border-base-300 hover:bg-base-200">
+                  <%= radio_button_tag :answer_option_id, option.id, false, class: "radio radio-primary", required: true %>
+                  <span class="markdown"><%= markdown(option.body) %></span>
+                </label>
+              <% end %>
+            </fieldset>
+          </div>
+          <div class="form-control">
+            <%= label_tag :comment, t("quiz.comment_optional"), class: "label" %>
+            <%= text_area_tag :comment, nil, rows: 3, class: "textarea textarea-bordered w-full", placeholder: t("quiz.comment_placeholder") %>
+          </div>
+        <% else %>
+          <div class="form-control">
+            <%= label_tag :comment, t("quiz.answer_in_words"), class: "label" %>
+            <%= text_area_tag :comment, nil, rows: 4, class: "textarea textarea-bordered w-full", placeholder: t("quiz.answer_in_words_placeholder"), required: true %>
+          </div>
+        <% end %>
+        <div class="form-control pt-2">
+          <%= submit_tag t("quiz.next_button"), class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
