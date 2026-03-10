@@ -27,6 +27,14 @@ ENV RAILS_ENV="production" \
     BUNDLE_WITHOUT="development" \
     LD_PRELOAD="/usr/local/lib/libjemalloc.so"
 
+# Build Tailwind CSS (Node required for Tailwind v4 + daisyUI)
+FROM docker.io/library/node:20-slim AS tailwind
+WORKDIR /app
+COPY package.json yarn.lock ./
+RUN corepack enable && yarn install && npm install @tailwindcss/cli
+COPY app/assets/tailwind app/assets/tailwind
+RUN mkdir -p app/assets/builds && npx @tailwindcss/cli -i app/assets/tailwind/application.css -o app/assets/builds/tailwind.css
+
 # Throw-away build stage to reduce size of final image
 FROM base AS build
 
@@ -46,12 +54,15 @@ RUN bundle install && \
 # Copy application code
 COPY . .
 
+# Prebuilt Tailwind CSS (so assets:precompile won't run yarn build:css)
+COPY --from=tailwind /app/app/assets/builds/tailwind.css app/assets/builds/tailwind.css
+
 # Precompile bootsnap code for faster boot times.
 # -j 1 disable parallel compilation to avoid a QEMU bug: https://github.com/rails/bootsnap/issues/495
 RUN bundle exec bootsnap precompile -j 1 app/ lib/
 
-# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+# Precompiling assets for production (Tailwind already built; TAILWIND_SKIP_BUILD avoids yarn in this image)
+RUN SECRET_KEY_BASE_DUMMY=1 TAILWIND_SKIP_BUILD=1 ./bin/rails assets:precompile
 
 
 

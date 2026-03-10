@@ -32,8 +32,7 @@ cat = Category.find_by(title: "Программирование")
 if cat && Question.where(category: cat).empty?
   q = cat.questions.create!(
     title: "Что такое переменная?",
-    body: "Выберите наиболее точное определение.",
-    position: 1
+    body: "Выберите наиболее точное определение."
   )
   q.answer_options.create!([{ body: "Именованная область памяти для хранения значения", correct: true, position: 1 }, { body: "Функция для вывода текста", correct: false, position: 2 }])
   puts "Created sample question in Программирование."
