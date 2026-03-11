@@ -25,7 +25,7 @@
               </thead>
               <tbody>
                 <% evaluations.each do |evaluation| %>
-                  <tr>
+                  <tr class="hover:bg-base-200 transition-all duration-300 whitespace-nowrap">
                     <td><%= evaluation.user.full_name %></td>
                     <td><%= evaluation.score.presence || "—" %></td>
                     <td>
@@ -35,7 +35,7 @@
                         —
                       <% end %>
                     </td>
-                    <td class="text-right">
+                    <td class="flex justify-end">
                       <%= link_to admin_result_path(evaluation.user_id), class: "btn btn-ghost btn-sm gap-1" do %>
                         <%= heroicon :eye, variant: :mini, options: { class: "w-4 h-4" } %>
                         <span><%= t("admin.actions.show") %></span>
@@ -51,4 +51,3 @@
     <% end %>
   </div>
 <% end %>
-

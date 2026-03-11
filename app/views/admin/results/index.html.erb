@@ -23,7 +23,7 @@
   <div class="bg-base-100 rounded-box shadow p-4">
     <h3 class="font-semibold mb-4"><%= t("admin.results.charts.correct_vs_incorrect") %></h3>
     <% if @overall_total_answers.positive? %>
-      <%= pie_chart @overall_correct_vs_incorrect, colors: ["#36d399", "#f87272"] %>
+      <%= pie_chart @overall_correct_vs_incorrect, colors: %w[#36d399 #f87272] %>
     <% else %>
       <p class="text-base-content/70"><%= t("admin.dashboard.no_data") %></p>
     <% end %>
@@ -38,7 +38,7 @@
   </div>
 </div>
 
-<div class="overflow-x-auto bg-base-100 rounded-box shadow">
+<div class="table-wrapper overflow-x-auto bg-base-100 rounded-box shadow">
   <table class="table">
     <thead>
       <tr>
@@ -53,27 +53,28 @@
         <% total = @total_countable_by_user[user.id] || 0 %>
         <% correct = @correct_answers_by_user[user.id] || 0 %>
         <% percent = total.positive? ? (correct.to_f / total * 100).round(1) : 0 %>
-        <tr>
+        <tr class="hover:bg-base-200 transition-all duration-300 whitespace-nowrap">
           <td><%= user.full_name %></td>
           <td><%= @attempts_by_user[user.id] || 0 %></td>
           <td><%= percent %>%</td>
-          <td>
-          <% already_evaluated = Evaluation.exists?(user_id: user.id, admin_id: current_user.id) %>
+          <td class="flex justify-end gap-2">
+            <% already_evaluated =
+              Evaluation.exists?(user_id: user.id, admin_id: current_user.id) %>
             <%= link_to admin_result_path(user.id), class: "btn btn-ghost btn-sm gap-1" do %>
               <%= heroicon :eye, variant: :mini, options: { class: "w-4 h-4" } %>
               <span><%= t("admin.actions.show") %></span>
             <% end %>
-          <% if already_evaluated %>
-            <button class="btn btn-ghost btn-sm gap-1 btn-disabled" disabled>
-              <%= heroicon :pencil, variant: :mini, options: { class: "w-4 h-4" } %>
-              <span><%= t("admin.results.evaluate") %></span>
-            </button>
-          <% else %>
-            <%= link_to admin_new_user_evaluation_path(user_id: user.id), class: "btn btn-primary btn-sm gap-1" do %>
-              <%= heroicon :pencil, variant: :mini, options: { class: "w-4 h-4" } %>
-              <span><%= t("admin.results.evaluate") %></span>
+            <% if already_evaluated %>
+              <button class="btn btn-ghost btn-sm gap-1 btn-disabled" disabled>
+                <%= heroicon :star, variant: :mini, options: { class: "w-4 h-4" } %>
+                <span><%= t("admin.results.evaluate") %></span>
+              </button>
+            <% else %>
+              <%= link_to admin_new_user_evaluation_path(user_id: user.id), class: "btn btn-primary btn-sm gap-1" do %>
+                <%= heroicon :star, variant: :mini, options: { class: "w-4 h-4" } %>
+                <span><%= t("admin.results.evaluate") %></span>
+              <% end %>
             <% end %>
-          <% end %>
           </td>
         </tr>
       <% end %>

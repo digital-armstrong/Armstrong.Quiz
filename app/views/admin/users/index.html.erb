@@ -19,16 +19,18 @@
     </thead>
     <tbody>
       <% @users.each do |u| %>
-        <tr>
+        <tr class="hover:bg-base-200 transition-all duration-300 whitespace-nowrap">
           <td><%= u.email %></td>
           <td><%= u.full_name %></td>
           <td><%= t("admin.users.roles.#{u.role}") %></td>
           <td>
-            <span class="badge badge-<%= u.active? ? 'success' : (u.banned? ? 'error' : 'warning') %>">
+            <span
+              class="badge badge-<%= u.active? ? 'success' : (u.banned? ? 'error' : 'warning') %>"
+            >
               <%= t("admin.users.states.#{u.state}") %>
             </span>
           </td>
-          <td class="flex gap-2 flex-wrap">
+          <td class="flex gap-2 justify-end">
             <%= link_to admin_user_path(u), class: "btn btn-ghost btn-sm gap-1" do %>
               <%= heroicon :eye, variant: :mini, options: { class: "w-4 h-4" } %>
               <span><%= t("admin.actions.show") %></span>
@@ -38,13 +40,43 @@
               <span><%= t("admin.actions.edit") %></span>
             <% end %>
             <% if u.active? %>
-              <%= button_to t("admin.users.archive"), archive_admin_user_path(u), method: :patch, class: "btn btn-warning btn-sm", form: { data: { turbo_confirm: t("admin.confirm_destroy") } } %>
-              <%= button_to t("admin.users.ban"), ban_admin_user_path(u), method: :patch, class: "btn btn-error btn-sm", form: { data: { turbo_confirm: t("admin.confirm_destroy") } } %>
+              <%= button_to t("admin.users.archive"),
+              archive_admin_user_path(u),
+              method: :patch,
+              class: "btn btn-warning btn-sm",
+              form: {
+                data: {
+                  turbo_confirm: t("admin.confirm_destroy"),
+                },
+              } %>
+              <%= button_to t("admin.users.ban"),
+              ban_admin_user_path(u),
+              method: :patch,
+              class: "btn btn-error btn-sm",
+              form: {
+                data: {
+                  turbo_confirm: t("admin.confirm_destroy"),
+                },
+              } %>
             <% elsif u.archived? %>
-              <%= button_to t("admin.users.activate"), activate_admin_user_path(u), method: :patch, class: "btn btn-success btn-sm" %>
-              <%= button_to t("admin.users.ban"), ban_admin_user_path(u), method: :patch, class: "btn btn-error btn-sm", form: { data: { turbo_confirm: t("admin.confirm_destroy") } } %>
+              <%= button_to t("admin.users.activate"),
+              activate_admin_user_path(u),
+              method: :patch,
+              class: "btn btn-success btn-sm" %>
+              <%= button_to t("admin.users.ban"),
+              ban_admin_user_path(u),
+              method: :patch,
+              class: "btn btn-error btn-sm",
+              form: {
+                data: {
+                  turbo_confirm: t("admin.confirm_destroy"),
+                },
+              } %>
             <% elsif u.banned? %>
-              <%= button_to t("admin.users.activate"), activate_admin_user_path(u), method: :patch, class: "btn btn-success btn-sm" %>
+              <%= button_to t("admin.users.activate"),
+              activate_admin_user_path(u),
+              method: :patch,
+              class: "btn btn-success btn-sm" %>
             <% end %>
             <%= button_to admin_user_path(u), method: :delete, class: "btn btn-ghost btn-sm btn-error gap-1", form: { data: { turbo_confirm: t("admin.confirm_destroy") } } do %>
               <%= heroicon :trash, variant: :mini, options: { class: "w-4 h-4" } %>

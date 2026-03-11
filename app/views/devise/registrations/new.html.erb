@@ -6,21 +6,28 @@
       <% resource.build_profile if resource.profile.nil? %>
       <%= f.fields_for :profile do |pf| %>
         <div class="form-control">
-          <%= pf.label :last_name, t("activerecord.attributes.profile.last_name"), class: "label" %>
+          <%= pf.label :last_name,
+                   t("activerecord.attributes.profile.last_name"),
+                   class: "label" %>
           <%= pf.text_field :last_name, class: "input input-bordered w-full", autofocus: true %>
           <% if pf.object.errors[:last_name].any? %>
             <p class="text-error text-sm mt-1"><%= pf.object.errors[:last_name].first %></p>
           <% end %>
         </div>
         <div class="form-control">
-          <%= pf.label :first_name, t("activerecord.attributes.profile.first_name"), class: "label" %>
+          <%= pf.label :first_name,
+                   t("activerecord.attributes.profile.first_name"),
+                   class: "label" %>
           <%= pf.text_field :first_name, class: "input input-bordered w-full" %>
           <% if pf.object.errors[:first_name].any? %>
             <p class="text-error text-sm mt-1"><%= pf.object.errors[:first_name].first %></p>
           <% end %>
         </div>
         <div class="form-control">
-          <%= pf.label :middle_name, t("activerecord.attributes.profile.middle_name") + " (" + t("activerecord.attributes.profile.middle_name_optional") + ")", class: "label" %>
+          <%= pf.label :middle_name,
+                   t("activerecord.attributes.profile.middle_name") + " (" +
+                     t("activerecord.attributes.profile.middle_name_optional") + ")",
+                   class: "label" %>
           <%= pf.text_field :middle_name, class: "input input-bordered w-full" %>
           <% if pf.object.errors[:middle_name].any? %>
             <p class="text-error text-sm mt-1"><%= pf.object.errors[:middle_name].first %></p>
@@ -30,7 +37,9 @@
 
       <div class="form-control">
         <%= f.label :email, class: "label" %>
-        <%= f.email_field :email, autocomplete: "email", class: "input input-bordered w-full" %>
+        <%= f.email_field :email,
+                      autocomplete: "email",
+                      class: "input input-bordered w-full" %>
         <% if resource.errors[:email].any? %>
           <p class="text-error text-sm mt-1"><%= resource.errors[:email].first %></p>
         <% end %>
@@ -39,9 +48,12 @@
       <div class="form-control">
         <%= f.label :password, class: "label" %>
         <% if @minimum_password_length %>
-          <span class="label-text-alt">(<%= @minimum_password_length %> <%= t("devise.registrations.new.characters_minimum") %>)</span>
+          <span class="label-text-alt">(<%= @minimum_password_length %>
+            <%= t("devise.registrations.new.characters_minimum") %>)</span>
         <% end %>
-        <%= f.password_field :password, autocomplete: "new-password", class: "input input-bordered w-full" %>
+        <%= f.password_field :password,
+                         autocomplete: "new-password",
+                         class: "input input-bordered w-full" %>
         <% if resource.errors[:password].any? %>
           <p class="text-error text-sm mt-1"><%= resource.errors[:password].first %></p>
         <% end %>
@@ -49,7 +61,9 @@
 
       <div class="form-control">
         <%= f.label :password_confirmation, class: "label" %>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input input-bordered w-full" %>
+        <%= f.password_field :password_confirmation,
+                         autocomplete: "new-password",
+                         class: "input input-bordered w-full" %>
         <% if resource.errors[:password_confirmation].any? %>
           <p class="text-error text-sm mt-1"><%= resource.errors[:password_confirmation].first %></p>
         <% end %>
@@ -57,10 +71,14 @@
 
       <div class="form-control">
         <label class="flex items-start gap-3 cursor-pointer">
-          <%= f.check_box :consent_to_personal_data, class: "checkbox checkbox-primary mt-0.5 shrink-0" %>
+          <%= f.check_box :consent_to_personal_data,
+                      class: "checkbox checkbox-primary mt-0.5 shrink-0" %>
           <span class="text-sm leading-relaxed">
             <%= t("devise.registrations.new.consent_label") %>
-            <%= link_to t("devise.registrations.new.privacy_link"), privacy_path, class: "link link-primary", target: "_blank" %>
+            <%= link_to t("devise.registrations.new.privacy_link"),
+            privacy_path,
+            class: "link link-primary",
+            target: "_blank" %>
           </span>
         </label>
         <% if resource.errors[:consent_to_personal_data].any? %>
@@ -68,13 +86,15 @@
         <% end %>
       </div>
 
-      <div class="form-control pt-2">
-        <%= f.submit t("devise.registrations.new.submit"), class: "btn btn-primary" %>
+      <div class="form-control text-center pt-2">
+        <%= f.submit t("devise.registrations.new.submit"), class: "btn btn-primary w-full" %>
       </div>
     <% end %>
 
     <p class="mt-4 text-center text-sm text-base-content/70">
-      <%= link_to t("devise.sessions.new.sign_in"), new_user_session_path, class: "link link-primary" %>
+      <%= link_to t("devise.sessions.new.sign_in"),
+      new_user_session_path,
+      class: "link link-primary" %>
     </p>
   </div>
 </div>
