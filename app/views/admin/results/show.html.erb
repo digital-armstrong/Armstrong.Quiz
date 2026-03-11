@@ -91,12 +91,12 @@
                       <span class="badge badge-error"><%= t("admin.dashboard.incorrect") %></span>
                     <% end %>
                     <% if ua.comment.present? %>
-                      <p class="text-sm mt-2"><strong><%= t("admin.results.comment") %>:</strong>
-                        <%= ua.comment %></p>
+                      <p class="text-sm mt-2"><strong><%= t("admin.results.comment") %>:</strong></p>
+                      <div class="markdown text-sm mt-1"><%= markdown(ua.comment) %></div>
                     <% end %>
                   <% else %>
-                    <p class="text-sm"><strong><%= t("admin.results.answer_in_words") %>:</strong>
-                      <%= ua.comment.presence || "—" %></p>
+                    <p class="text-sm"><strong><%= t("admin.results.answer_in_words") %>:</strong></p>
+                    <div class="markdown text-sm mt-1"><%= ua.comment.present? ? markdown(ua.comment) : "—" %></div>
                     <% if ua.admin_correct.nil? %>
                       <p class="text-warning text-sm mt-2"><%= t("admin.results.awaiting_approval") %></p>
                       <div class="flex gap-2 mt-2">

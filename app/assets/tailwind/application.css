@@ -112,12 +112,24 @@
   @apply m-0;
 }
 
-/* Убираем стрелки у полей number */
-.input-no-spinner::-webkit-outer-spin-button,
-.input-no-spinner::-webkit-inner-spin-button {
+/* Скрытие скроллбара (Chrome, Opera, Safari, Firefox, IE/Edge) — и html, и body */
+html,
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Убираем стрелки у полей number (Chrome, Opera, Safari) */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.input-no-spinner {
+/* Убираем стрелки у полей number (Firefox) */
+input[type="number"] {
   -moz-appearance: textfield;
 }

@@ -10,7 +10,7 @@
         <% %i[technical_knowledge argumentation creative_thinking team_collaboration leadership execution quick_learning].each do |attr| %>
           <div class="form-control">
             <%= f.label attr, t("admin.evaluations.criteria.#{attr}"), class: "label" %>
-            <%= f.number_field attr, class: "input input-bordered w-full input-no-spinner", min: 1, max: 5, placeholder: "1–5" %>
+            <%= f.number_field attr, class: "input input-bordered w-full", min: 1, max: 5, placeholder: "1–5" %>
           </div>
         <% end %>
       </div>
