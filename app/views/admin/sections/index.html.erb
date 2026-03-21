@@ -1,0 +1,53 @@
+<div class="flex justify-between items-center mb-6">
+  <h1 class="text-3xl font-bold"><%= t("admin.sections.index_title") %></h1>
+  <%= link_to new_admin_section_path, class: "btn btn-primary gap-2" do %>
+    <%= heroicon :plus, variant: :mini, options: { class: "w-4 h-4" } %>
+    <span><%= t("admin.sections.new") %></span>
+  <% end %>
+</div>
+
+<div class="overflow-x-auto bg-base-100 rounded-box shadow">
+  <table class="table">
+    <thead>
+      <tr>
+        <th><%= Section.human_attribute_name(:title) %></th>
+        <th><%= Section.human_attribute_name(:description) %></th>
+        <th><%= Section.human_attribute_name(:enabled) %></th>
+        <th><%= t("admin.sections.categories_count") %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @sections.each do |section| %>
+        <tr class="hover:bg-base-200 transition-all duration-300 whitespace-nowrap">
+          <td><%= section.title %></td>
+          <td><%= truncate(section.description.to_s, length: 60) %></td>
+          <td>
+            <% if section.enabled? %>
+              <span class="badge badge-success badge-sm"><%= t("admin.sections.status.enabled") %></span>
+            <% else %>
+              <span class="badge badge-ghost badge-sm"><%= t("admin.sections.status.disabled") %></span>
+            <% end %>
+          </td>
+          <td><%= section.categories.size %></td>
+          <td class="flex justify-end gap-2">
+            <%= link_to admin_section_path(section), class: "btn btn-ghost btn-sm gap-1" do %>
+              <%= heroicon :eye, variant: :mini, options: { class: "w-4 h-4" } %>
+              <span><%= t("admin.actions.show") %></span>
+            <% end %>
+            <%= link_to edit_admin_section_path(section), class: "btn btn-ghost btn-sm gap-1" do %>
+              <%= heroicon :pencil, variant: :mini, options: { class: "w-4 h-4" } %>
+              <span><%= t("admin.actions.edit") %></span>
+            <% end %>
+            <%= button_to admin_section_path(section), method: :delete,
+                  form: { data: { turbo_confirm: t("admin.confirm_destroy") } },
+                  class: "btn btn-ghost btn-sm text-error gap-1" do %>
+              <%= heroicon :trash, variant: :mini, options: { class: "w-4 h-4" } %>
+              <span><%= t("admin.actions.destroy") %></span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

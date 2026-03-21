@@ -35,58 +35,67 @@
   </div>
 </div>
 
-<% if @categories.any? %>
-  <h2 class="text-2xl font-bold mb-4"><%= t("home.categories_title") %></h2>
-  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-    <% @categories.each do |category| %>
-      <% completed =
-        user_signed_in? && current_user.student? &&
-          (@completed_category_ids || []).include?(category.id) %>
-      <% can_start =
-        user_signed_in? && current_user.student? && !completed &&
-          category.questions.any? %>
-      <% if can_start %>
-        <%= form_with url: quiz_path, method: :post, local: true, class: "block h-full" do |f| %>
-          <%= f.hidden_field :category_id, value: category.id, id: nil %>
-          <button
-            type="submit"
-            class="
-              card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow cursor-pointer
-              w-full h-full text-left border-0 p-0
-            "
-          >
-            <div class="card-body">
-              <h3 class="card-title"><%= category.title %></h3>
-              <% if category.description.present? %>
-                <p class="text-base-content/70 text-sm line-clamp-3"><%= category.description %></p>
-              <% end %>
-              <p class="text-sm text-base-content/60">
-                <%= t("home.questions_count", count: category.questions.count) %>
-              </p>
-              <p class="text-primary font-medium mt-2"><%= t("home.start_quiz") %></p>
-            </div>
-          </button>
-        <% end %>
-      <% else %>
-        <div class="card bg-base-100 shadow-xl">
-          <div class="card-body">
-            <h3 class="card-title"><%= category.title %></h3>
-            <% if category.description.present? %>
-              <p class="text-base-content/70 text-sm line-clamp-3"><%= category.description %></p>
-            <% end %>
-            <p class="text-sm text-base-content/60">
-              <%= t("home.questions_count", count: category.questions.count) %>
-            </p>
-            <% if user_signed_in? && current_user.student? %>
-              <% if completed %>
-                <p class="text-success font-medium"><%= t("home.category_completed") %></p>
-              <% elsif category.questions.empty? %>
-                <p class="text-base-content/50 text-sm"><%= t("home.category_no_questions") %></p>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
+<% if @sections.any? { |s| s.categories.any? } %>
+  <h2 class="text-2xl font-bold mb-6"><%= t("home.categories_title") %></h2>
+  <% @sections.each do |section| %>
+    <% next if section.categories.empty? %>
+    <section class="mb-10">
+      <h3 class="text-xl font-semibold mb-1"><%= section.title %></h3>
+      <% if section.description.present? %>
+        <p class="text-base-content/70 text-sm mb-4 line-clamp-2"><%= section.description %></p>
       <% end %>
-    <% end %>
-  </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <% section.categories.each do |category| %>
+          <% completed =
+            user_signed_in? && current_user.student? &&
+              (@completed_category_ids || []).include?(category.id) %>
+          <% can_start =
+            user_signed_in? && current_user.student? && !completed &&
+              category.questions.any? %>
+          <% if can_start %>
+            <%= form_with url: quiz_path, method: :post, local: true, class: "block h-full" do |f| %>
+              <%= f.hidden_field :category_id, value: category.id, id: nil %>
+              <button
+                type="submit"
+                class="
+                  card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow cursor-pointer
+                  w-full h-full text-left border-0 p-0
+                "
+              >
+                <div class="card-body">
+                  <h4 class="card-title"><%= category.title %></h4>
+                  <% if category.description.present? %>
+                    <p class="text-base-content/70 text-sm line-clamp-3"><%= category.description %></p>
+                  <% end %>
+                  <p class="text-sm text-base-content/60">
+                    <%= t("home.questions_count", count: category.questions.size) %>
+                  </p>
+                  <p class="text-primary font-medium mt-2"><%= t("home.start_quiz") %></p>
+                </div>
+              </button>
+            <% end %>
+          <% else %>
+            <div class="card bg-base-100 shadow-xl">
+              <div class="card-body">
+                <h4 class="card-title"><%= category.title %></h4>
+                <% if category.description.present? %>
+                  <p class="text-base-content/70 text-sm line-clamp-3"><%= category.description %></p>
+                <% end %>
+                <p class="text-sm text-base-content/60">
+                  <%= t("home.questions_count", count: category.questions.size) %>
+                </p>
+                <% if user_signed_in? && current_user.student? %>
+                  <% if completed %>
+                    <p class="text-success font-medium"><%= t("home.category_completed") %></p>
+                  <% elsif category.questions.empty? %>
+                    <p class="text-base-content/50 text-sm"><%= t("home.category_no_questions") %></p>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
 <% end %>

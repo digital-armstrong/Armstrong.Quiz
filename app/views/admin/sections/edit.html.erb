@@ -1,0 +1,5 @@
+<div class="max-w-xl">
+  <h1 class="text-3xl font-bold mb-6"><%= t("admin.sections.edit") %></h1>
+  <%= render "form", section: @section, url: admin_section_path(@section) %>
+  <%= link_to t("admin.actions.back"), admin_section_path(@section), class: "btn btn-ghost mt-4" %>
+</div>

@@ -1,4 +1,25 @@
 module ApplicationHelper
+  # «Фамилия И.О.» для подписей на графиках и компактного вывода.
+  # Принимает User или Profile; без профиля/фамилии — +fallback+ или email пользователя.
+  def fio_short(record, fallback: nil)
+    return fallback.to_s if record.nil?
+
+    last_name, first_name, middle_name = fio_components(record)
+
+    fb = fallback
+    fb = record.email if fb.nil? && record.is_a?(User)
+    return fb.to_s if last_name.blank?
+
+    initials = +""
+    fn = first_name.to_s.strip
+    mn = middle_name.to_s.strip
+    initials << "#{fn.chars.first}." if fn.present?
+    initials << "#{mn.chars.first}." if mn.present?
+
+    ln = last_name.strip
+    initials.present? ? "#{ln} #{initials}" : ln
+  end
+
   def markdown(text)
     return "" if text.blank?
 
@@ -12,4 +33,19 @@ module ApplicationHelper
     else "bg-base-100 border-base-300 shadow-lg"
     end
   end
+
+  def fio_components(record)
+    case record
+    when User
+      return [nil, nil, nil] unless record.profile
+
+      p = record.profile
+      [p.last_name, p.first_name, p.middle_name]
+    when Profile
+      [record.last_name, record.first_name, record.middle_name]
+    else
+      raise ArgumentError, "fio_short: expected User or Profile, got #{record.class}"
+    end
+  end
+  private :fio_components
 end

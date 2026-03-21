@@ -78,7 +78,7 @@ module Admin
 
     def question_params
       params.require(:question).permit(
-        :category_id, :title, :body,
+        :category_id, :title, :body, :pool_tag,
         answer_options_attributes: %i[id body correct position _destroy]
       )
     end

@@ -8,6 +8,10 @@
 
 <div class="card bg-base-100 shadow-xl">
   <div class="card-body">
+    <p class="text-sm text-base-content/70 mb-2">
+      <%= Category.human_attribute_name(:section) %>:
+      <%= link_to @category.section.title, admin_section_path(@category.section), class: "link link-primary" %>
+    </p>
     <% if @category.description.present? %>
       <div class="markdown"><%= markdown(@category.description) %></div>
     <% end %>

@@ -13,6 +13,19 @@
     <%= f.text_area :body, rows: 6, class: "textarea textarea-bordered w-full font-mono text-sm" %>
   </div>
 
+  <fieldset class="form-control border border-base-300 rounded-box p-4">
+    <legend class="text-sm font-semibold px-1"><%= Question.human_attribute_name(:pool_tag) %></legend>
+    <p class="text-sm text-base-content/60 mb-3"><%= t("admin.questions.pool_tag_hint") %></p>
+    <div class="flex flex-col gap-2">
+      <% Question.pool_tags.keys.each do |tag| %>
+        <label class="label cursor-pointer justify-start gap-3 py-1">
+          <%= f.radio_button :pool_tag, tag, class: "radio radio-primary" %>
+          <span class="label-text"><%= Question.human_pool_tag_name(tag) %></span>
+        </label>
+      <% end %>
+    </div>
+  </fieldset>
+
   <div class="form-control pt-4 border-t border-base-300" data-controller="answer-options" data-answer-options-url-value="<%= new_option_fields_admin_questions_path %>">
     <div class="flex items-center justify-between mb-2">
       <label class="label py-0"><span class="label-text font-semibold"><%= t("admin.answer_options.index_title") %></span></label>

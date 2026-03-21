@@ -28,6 +28,10 @@ class QuizController < ApplicationController
       redirect_to root_path, alert: t("quiz.category_not_found")
       return
     end
+    unless category.section.enabled?
+      redirect_to root_path, alert: t("quiz.section_disabled")
+      return
+    end
     if category.questions.empty?
       redirect_to root_path, alert: t("quiz.category_no_questions")
       return

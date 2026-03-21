@@ -34,7 +34,7 @@ module Admin
         next if total.zero?
 
         correct = @correct_answers_by_user[user.id].to_i
-        @students_correct_percent[user.full_name] = (correct.to_f / total * 100).round(1)
+        @students_correct_percent[helpers.fio_short(user)] = (correct.to_f / total * 100).round(1)
       end
       @students_correct_percent = @students_correct_percent.sort_by { |_, pct| -pct }.to_h
     end

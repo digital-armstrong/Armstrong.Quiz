@@ -6,7 +6,7 @@ module Admin
     before_action :set_category, only: %i[show edit update destroy]
 
     def index
-      @categories = policy_scope(Category).order(:title)
+      @categories = policy_scope(Category).includes(:section).order(:title)
     end
 
     def show
@@ -54,7 +54,7 @@ module Admin
     end
 
     def category_params
-      params.require(:category).permit(:title, :description)
+      params.require(:category).permit(:title, :description, :section_id)
     end
   end
 end

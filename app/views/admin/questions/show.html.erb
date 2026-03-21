@@ -18,7 +18,14 @@
 
 <div class="card bg-base-100 shadow-xl mb-6">
   <div class="card-body">
-    <p class="text-sm text-base-content/70"><%= @question.category.title %></p>
+    <div class="flex flex-wrap items-center gap-2 mb-2">
+      <p class="text-sm text-base-content/70"><%= @question.category.title %></p>
+      <% unless @question.standard? %>
+        <span class="badge <%= @question.difficult? ? 'badge-warning' : 'badge-error' %> badge-sm">
+          <%= Question.human_pool_tag_name(@question.pool_tag) %>
+        </span>
+      <% end %>
+    </div>
     <div class="markdown mt-2"><%= markdown(@question.body) %></div>
   </div>
 </div>

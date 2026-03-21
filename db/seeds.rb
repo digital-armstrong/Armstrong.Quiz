@@ -11,21 +11,47 @@ if admin.new_record?
   puts "Created admin: admin@example.com / password123"
 end
 
-# Example categories
-categories_data = [
-  { title: "Системное администрирование", description: "Вопросы по администрированию ОС и серверов." },
-  { title: "Программирование", description: "Основы программирования и алгоритмы." },
-  { title: "Информационная безопасность", description: "Безопасность данных и сетей." },
-  { title: "АСУ ТП", description: "Автоматизированные системы управления технологическими процессами." }
+# Sections and categories (categories belong to a section)
+quiz_structure = [
+  {
+    section: {
+      title: "Информационные технологии",
+      description: "Квизы по ИТ: администрирование, разработка, ИБ, АСУ ТП."
+    },
+    categories: [
+      { title: "Системное администрирование", description: "Вопросы по администрированию ОС и серверов." },
+      { title: "Программирование", description: "Основы программирования и алгоритмы." },
+      { title: "Информационная безопасность", description: "Безопасность данных и сетей." },
+      { title: "АСУ ТП", description: "Автоматизированные системы управления технологическими процессами." }
+    ]
+  },
+  {
+    section: {
+      title: "Безопасность",
+      description: "Требования и нормы по охране труда и специализированным видам безопасности."
+    },
+    categories: [
+      { title: "Радиационная безопасность", description: "Работа с источниками излучения и дозиметрия." },
+      { title: "Электробезопасность", description: "Правила работы с электроустановками." },
+      { title: "Охрана труда", description: "Организация безопасных условий на рабочем месте." }
+    ]
+  }
 ]
 
-categories_data.each do |attrs|
-  Category.find_or_create_by!(title: attrs[:title]) do |c|
-    c.description = attrs[:description]
+quiz_structure.each do |block|
+  section = Section.find_or_initialize_by(title: block[:section][:title])
+  section.description = block[:section][:description]
+  section.save!
+
+  block[:categories].each do |attrs|
+    cat = Category.find_or_initialize_by(title: attrs[:title])
+    cat.section = section
+    cat.description = attrs[:description]
+    cat.save!
   end
 end
 
-puts "Seeded #{Category.count} categories."
+puts "Seeded #{Section.count} sections, #{Category.count} categories."
 
 # Optional: one sample question with options
 cat = Category.find_by(title: "Программирование")

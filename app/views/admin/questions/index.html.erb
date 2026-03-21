@@ -12,6 +12,7 @@
       <tr>
         <th><%= Question.human_attribute_name(:title) %></th>
         <th><%= Category.model_name.human %></th>
+        <th><%= Question.human_attribute_name(:pool_tag) %></th>
         <th></th>
       </tr>
     </thead>
@@ -20,6 +21,15 @@
         <tr class="hover:bg-base-200 transition-all duration-300 whitespace-nowrap">
           <td><%= truncate(q.title, length: 50) %></td>
           <td><%= q.category.title %></td>
+          <td>
+            <% if q.standard? %>
+              <span class="text-base-content/50 text-sm">—</span>
+            <% else %>
+              <span class="badge <%= q.difficult? ? 'badge-warning' : 'badge-error' %> badge-sm">
+                <%= Question.human_pool_tag_name(q.pool_tag) %>
+              </span>
+            <% end %>
+          </td>
           <td class="flex justify-end gap-2">
             <%= link_to admin_question_path(q), class: "btn btn-ghost btn-sm gap-1" do %>
               <%= heroicon :eye, variant: :mini, options: { class: "w-4 h-4" } %>

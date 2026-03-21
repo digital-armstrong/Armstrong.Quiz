@@ -10,6 +10,7 @@
   <table class="table">
     <thead>
       <tr>
+        <th><%= Category.human_attribute_name(:section) %></th>
         <th><%= Category.human_attribute_name(:title) %></th>
         <th><%= Category.human_attribute_name(:description) %></th>
         <th></th>
@@ -18,6 +19,7 @@
     <tbody>
       <% @categories.each do |category| %>
         <tr class="hover:bg-base-200 transition-all duration-300 whitespace-nowrap">
+          <td><%= link_to category.section.title, admin_section_path(category.section), class: "link link-primary" %></td>
           <td><%= category.title %></td>
           <td><%= truncate(category.description.to_s, length: 60) %></td>
           <td class="flex justify-end gap-2">

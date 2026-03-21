@@ -71,6 +71,7 @@ ru:
     already_started: "У вас уже есть активный квиз. Продолжаем."
     choose_category: "Выберите категорию на главной странице."
     category_not_found: "Категория не найдена."
+    section_disabled: "Этот раздел пока недоступен для прохождения."
     category_no_questions: "В этой категории нет вопросов."
     category_already_completed: "Вы уже проходили квиз в этой категории."
     answer_saved: "Ответ сохранён."
@@ -102,6 +103,20 @@ ru:
       create: "Создать"
       update: "Сохранить"
     confirm_destroy: "Вы уверены?"
+    sections:
+      index_title: "Разделы"
+      new: "Новый раздел"
+      edit: "Изменить раздел"
+      categories_count: "Категорий"
+      categories_in_section: "Категории в разделе"
+      created: "Раздел успешно создан."
+      updated: "Раздел успешно обновлён."
+      destroyed: "Раздел удалён."
+      destroy_restricted: "Нельзя удалить раздел, пока в нём есть категории."
+      enabled_hint: "Выключенный раздел не показывается на главной; начать квиз по его категориям нельзя (удобно на время подготовки материалов)."
+      status:
+        enabled: "Включён"
+        disabled: "Выключен"
     categories:
       index_title: "Категории"
       new: "Новая категория"
@@ -115,6 +130,7 @@ ru:
       new: "Новый вопрос"
       edit: "Изменить вопрос"
       position: "Позиция"
+      pool_tag_hint: "Пометка учитывается при будущем формировании пула вопросов для квиза."
       created: "Вопрос успешно создан."
       updated: "Вопрос успешно обновлён."
       destroyed: "Вопрос удалён."
@@ -142,8 +158,10 @@ ru:
       incorrect: "Неправильно"
       no_data: "Пока нет данных."
     nav:
+      public_site: "На сайт"
       management: "Управление"
       users: "Пользователи"
+      sections: "Разделы"
       categories: "Категории"
       questions: "Вопросы"
       results: "Результаты"
@@ -233,6 +251,12 @@ ru:
         correct_by_category: "Правильные ответы по категориям"
 
   activerecord:
+    enums:
+      question:
+        pool_tag:
+          standard: "Обычный"
+          difficult: "Сложный"
+          special: "Особенный"
     errors:
       messages:
         accepted: "должно быть принято"
@@ -261,6 +285,7 @@ ru:
           one_active_attempt: "У вас уже есть активная попытка прохождения квиза."
           category_already_completed: "Вы уже проходили квиз в этой категории."
     models:
+      section: "Раздел"
       category: "Категория"
       question: "Вопрос"
       answer_option: "Вариант ответа"
@@ -270,13 +295,20 @@ ru:
       evaluation: "Оценка"
       profile: "Профиль"
     attributes:
+      section:
+        title: "Название"
+        description: "Описание"
+        enabled: "Раздел доступен студентам"
       category:
         title: "Название"
         description: "Описание"
+        section: "Раздел"
+        section_id: "Раздел"
       question:
         title: "Заголовок"
         body: "Текст вопроса"
         position: "Позиция"
+        pool_tag: "Пометка для пула"
         category: "Категория"
         category_id: "Категория"
       answer_option:

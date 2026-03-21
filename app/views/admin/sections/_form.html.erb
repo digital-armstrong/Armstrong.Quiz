@@ -1,0 +1,19 @@
+<%= form_with model: section, url: url, class: "space-y-4" do |f| %>
+  <%= render "shared/error_messages", resource: section %>
+  <div class="form-control">
+    <%= f.label :title, class: "label" %>
+    <%= f.text_field :title, class: "input input-bordered w-full" %>
+  </div>
+  <div class="form-control">
+    <%= f.label :description, class: "label" %>
+    <%= f.text_area :description, rows: 4, class: "textarea textarea-bordered w-full" %>
+  </div>
+  <div class="form-control">
+    <label class="label cursor-pointer justify-start gap-3 py-2">
+      <%= f.check_box :enabled, class: "toggle toggle-success" %>
+      <span class="label-text"><%= Section.human_attribute_name(:enabled) %></span>
+    </label>
+    <p class="text-sm text-base-content/60 -mt-1"><%= t("admin.sections.enabled_hint") %></p>
+  </div>
+  <%= f.submit (section.persisted? ? t("admin.actions.update") : t("admin.actions.create")), class: "btn btn-primary" %>
+<% end %>

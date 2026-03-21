@@ -82,6 +82,7 @@ en:
     already_started: "You already have an active quiz. Continuing."
     choose_category: "Choose a category on the home page."
     category_not_found: "Category not found."
+    section_disabled: "This section is not available for quizzes yet."
     category_no_questions: "This category has no questions."
     category_already_completed: "You have already completed the quiz in this category."
     answer_saved: "Answer saved."
@@ -113,6 +114,20 @@ en:
       create: "Create"
       update: "Save"
     confirm_destroy: "Are you sure?"
+    sections:
+      index_title: "Sections"
+      new: "New section"
+      edit: "Edit section"
+      categories_count: "Categories"
+      categories_in_section: "Categories in this section"
+      created: "Section was successfully created."
+      updated: "Section was successfully updated."
+      destroyed: "Section was successfully destroyed."
+      destroy_restricted: "Cannot delete a section that still has categories."
+      enabled_hint: "When off, the section is hidden from the home page and students cannot start quizzes in its categories (e.g. while content is being prepared)."
+      status:
+        enabled: "On"
+        disabled: "Off"
     categories:
       index_title: "Categories"
       new: "New category"
@@ -126,6 +141,7 @@ en:
       new: "New question"
       edit: "Edit question"
       position: "Position"
+      pool_tag_hint: "This label will be used when building the quiz question pool (coming later)."
       created: "Question was successfully created."
       updated: "Question was successfully updated."
       destroyed: "Question was successfully destroyed."
@@ -153,8 +169,10 @@ en:
       incorrect: "Incorrect"
       no_data: "No data yet."
     nav:
+      public_site: "Main site"
       management: "Management"
       users: "Users"
+      sections: "Sections"
       categories: "Categories"
       questions: "Questions"
       results: "Results"
@@ -244,6 +262,12 @@ en:
         correct_by_category: "Correct answers by category"
 
   activerecord:
+    enums:
+      question:
+        pool_tag:
+          standard: "Standard"
+          difficult: "Difficult"
+          special: "Special"
     errors:
       messages:
         accepted: "must be accepted"
@@ -272,6 +296,7 @@ en:
           one_active_attempt: "You already have an active quiz attempt."
           category_already_completed: "You have already completed the quiz in this category."
     models:
+      section: "Section"
       category: "Category"
       question: "Question"
       answer_option: "Answer option"
@@ -281,13 +306,20 @@ en:
       evaluation: "Evaluation"
       profile: "Profile"
     attributes:
+      section:
+        title: "Title"
+        description: "Description"
+        enabled: "Section visible to students"
       category:
         title: "Title"
         description: "Description"
+        section: "Section"
+        section_id: "Section"
       question:
         title: "Title"
         body: "Question text"
         position: "Position"
+        pool_tag: "Pool label"
         category: "Category"
         category_id: "Category"
       answer_option:

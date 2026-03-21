@@ -1,0 +1,41 @@
+<div class="flex justify-between items-center mb-6">
+  <h1 class="text-3xl font-bold"><%= @section.title %></h1>
+  <div class="flex gap-2">
+    <%= link_to t("admin.actions.edit"), edit_admin_section_path(@section), class: "btn btn-primary" %>
+    <%= link_to t("admin.actions.back"), admin_sections_path, class: "btn btn-ghost" %>
+  </div>
+</div>
+
+<div class="card bg-base-100 shadow-xl mb-6">
+  <div class="card-body">
+    <p class="text-sm mb-2">
+      <% if @section.enabled? %>
+        <span class="badge badge-success badge-sm"><%= t("admin.sections.status.enabled") %></span>
+      <% else %>
+        <span class="badge badge-ghost badge-sm"><%= t("admin.sections.status.disabled") %></span>
+      <% end %>
+    </p>
+    <% if @section.description.present? %>
+      <div class="markdown"><%= markdown(@section.description) %></div>
+    <% end %>
+    <p class="text-sm text-base-content/70">
+      <%= t("admin.sections.categories_count") %>: <%= @section.categories.size %>
+    </p>
+  </div>
+</div>
+
+<% if @section.categories.any? %>
+  <h2 class="text-xl font-bold mb-3"><%= t("admin.sections.categories_in_section") %></h2>
+  <ul class="menu bg-base-100 rounded-box shadow w-full max-w-xl">
+    <% @section.categories.each do |category| %>
+      <li>
+        <%= link_to admin_category_path(category) do %>
+          <span class="font-medium"><%= category.title %></span>
+          <span class="text-sm text-base-content/60">
+            <%= category.questions.size %> <%= t("admin.categories.questions_count") %>
+          </span>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

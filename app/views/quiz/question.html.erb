@@ -1,7 +1,14 @@
 <%= turbo_frame_tag "quiz_question" do %>
   <div class="max-w-3xl mx-auto card bg-base-100 shadow-xl">
     <div class="card-body">
-      <h2 class="card-title text-xl"><%= @question.title %></h2>
+      <div class="flex flex-wrap items-center gap-2 gap-y-1">
+        <h2 class="card-title text-xl"><%= @question.title %></h2>
+        <% unless @question.standard? %>
+          <span class="badge <%= @question.difficult? ? 'badge-warning' : 'badge-error' %> badge-sm shrink-0">
+            <%= Question.human_pool_tag_name(@question.pool_tag) %>
+          </span>
+        <% end %>
+      </div>
       <div class="markdown prose max-w-none">
         <%= markdown(@question.body) %>
       </div>

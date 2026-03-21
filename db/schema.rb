@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_10_180000) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_21_150000) do
   create_table "answer_options", force: :cascade do |t|
     t.text "body"
     t.boolean "correct"
@@ -24,8 +24,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_180000) do
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "description"
+    t.integer "section_id", null: false
     t.string "title"
     t.datetime "updated_at", null: false
+    t.index ["section_id"], name: "index_categories_on_section_id"
   end
 
   create_table "evaluations", force: :cascade do |t|
@@ -62,9 +64,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_180000) do
     t.text "body"
     t.integer "category_id", null: false
     t.datetime "created_at", null: false
+    t.integer "pool_tag", default: 0, null: false
     t.string "title"
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_questions_on_category_id"
+    t.index ["pool_tag"], name: "index_questions_on_pool_tag"
   end
 
   create_table "quiz_attempts", force: :cascade do |t|
@@ -76,6 +80,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_180000) do
     t.integer "user_id", null: false
     t.index ["category_id"], name: "index_quiz_attempts_on_category_id"
     t.index ["user_id"], name: "index_quiz_attempts_on_user_id"
+  end
+
+  create_table "sections", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.boolean "enabled", default: true, null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_answers", force: :cascade do |t|
@@ -107,7 +119,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_180000) do
     t.index ["state"], name: "index_users_on_state"
   end
 
+  create_table "wiki_articles", force: :cascade do |t|
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.string "slug", null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["slug"], name: "index_wiki_articles_on_slug", unique: true
+    t.index ["user_id"], name: "index_wiki_articles_on_user_id"
+  end
+
   add_foreign_key "answer_options", "questions"
+  add_foreign_key "categories", "sections"
   add_foreign_key "evaluations", "users"
   add_foreign_key "evaluations", "users", column: "admin_id"
   add_foreign_key "profiles", "users"
@@ -117,4 +141,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_10_180000) do
   add_foreign_key "user_answers", "answer_options"
   add_foreign_key "user_answers", "questions"
   add_foreign_key "user_answers", "quiz_attempts"
+  add_foreign_key "wiki_articles", "users"
 end

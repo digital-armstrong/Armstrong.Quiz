@@ -15,6 +15,7 @@ Rails.application.routes.draw do
         patch :activate
       end
     end
+    resources :sections
     resources :categories
     resources :questions do
       get :new_option_fields, on: :collection
