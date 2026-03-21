@@ -2,8 +2,38 @@ ru:
   hello: "Привет, мир"
 
   date:
-    month_names: [~, Январь, Февраль, Март, Апрель, Май, Июнь, Июль, Август, Сентябрь, Октябрь, Ноябрь, Декабрь]
-    abbr_month_names: [~, янв., февр., март, апр., май, июнь, июль, авг., сент., окт., нояб., дек.]
+    month_names:
+      [
+        ~,
+        Январь,
+        Февраль,
+        Март,
+        Апрель,
+        Май,
+        Июнь,
+        Июль,
+        Август,
+        Сентябрь,
+        Октябрь,
+        Ноябрь,
+        Декабрь,
+      ]
+    abbr_month_names:
+      [
+        ~,
+        янв.,
+        февр.,
+        март,
+        апр.,
+        май,
+        июнь,
+        июль,
+        авг.,
+        сент.,
+        окт.,
+        нояб.,
+        дек.,
+      ]
     formats:
       default: "%d.%m.%Y"
       short: "%d %b"
@@ -20,11 +50,23 @@ ru:
     sign_in: "Войти"
     sign_up: "Регистрация"
     profile: "Профиль"
+    settings: "Настройки"
     admin: "Админ-панель"
     logout: "Выйти"
 
   profile:
     title: "Мой профиль"
+    edit_title: "Настройки аккаунта"
+    edit_subtitle: "Измените ФИО, email и пароль."
+    edit_link: "Редактировать профиль"
+    updated: "Данные аккаунта обновлены."
+    back_to_profile: "К профилю"
+    sections:
+      personal: "Личные данные"
+      password: "Пароль"
+    password_hint: "Оставьте поля пароля пустыми, чтобы не менять его. Для нового пароля заполните все три поля ниже."
+    password_min: "Не менее %{count} символов."
+    current_password_hint: "Нужен только при смене пароля."
     fio: "ФИО"
     subtitle: "Ваша статистика по квизам и ответам."
     no_data: "Пока нет данных."
@@ -79,7 +121,7 @@ ru:
     start_description: "Вы будете проходить вопросы по одному. К каждому ответу можно добавить комментарий (необязательно)."
     start_button: "Начать квиз"
     choose_answer: "Выберите один ответ"
-    answer_in_words: "Напишите ответ словами"
+    answer_in_words: "Напишите ответ в свободной форме"
     answer_in_words_placeholder: "Введите ваш ответ..."
     comment_optional: "Комментарий (необязательно)"
     comment_placeholder: "Ваш комментарий..."
@@ -192,6 +234,9 @@ ru:
       banned: "Пользователь заблокирован."
       archived: "Пользователь архивирован."
       activated: "Пользователь активирован."
+      password_required_hint: "Обязательно при создании пользователя."
+      password_optional_hint: "Оставьте пустым, чтобы не менять пароль. Заполните оба поля, чтобы задать новый."
+      password_min_hint: "Минимум символов: %{count}."
     evaluations:
       new_title: "Оценка: %{user}"
       edit_title: "Редактировать оценку"
@@ -217,7 +262,7 @@ ru:
         prospective: "На перспективу"
         not_suitable: "Не подходит"
     user_answers:
-      updated: "Ответ отмечен."
+      updated: "Ответ был оценен."
     results:
       title: "Результаты"
       evaluate: "Оценить"
@@ -225,8 +270,11 @@ ru:
       latest_attempt: "Последняя попытка"
       completed_at: "Завершено"
       comment: "Комментарий"
-      answer_in_words: "Ответ словами"
-      awaiting_approval: "Ожидает одобрения администратора."
+      answer_in_words: "Ответ в свободной форме"
+      awaiting_approval: "Ожидает проверку"
+      answer_options_heading: "Варианты ответа"
+      student_choice: "Выбор студента"
+      no_answer_selected: "Ответ не выбран"
       stats:
         students: "Студенты"
         completed_quizzes: "Завершённых квизов"

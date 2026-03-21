@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_21_150000) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_22_121000) do
   create_table "answer_options", force: :cascade do |t|
     t.text "body"
     t.boolean "correct"
@@ -58,6 +58,81 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_21_150000) do
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "questionnaire_condition_blocks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "position", default: 0, null: false
+    t.string "prompt"
+    t.integer "questionnaire_field_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["questionnaire_field_id"], name: "index_questionnaire_condition_blocks_on_questionnaire_field_id"
+  end
+
+  create_table "questionnaire_condition_options", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "label", null: false
+    t.integer "position", default: 0, null: false
+    t.integer "questionnaire_condition_block_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["questionnaire_condition_block_id"], name: "idx_on_questionnaire_condition_block_id_210a377b24"
+  end
+
+  create_table "questionnaire_field_options", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "label", null: false
+    t.integer "position", default: 0, null: false
+    t.integer "questionnaire_field_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["questionnaire_field_id"], name: "index_questionnaire_field_options_on_questionnaire_field_id"
+  end
+
+  create_table "questionnaire_fields", force: :cascade do |t|
+    t.boolean "allow_free_text", default: true, null: false
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.integer "kind", default: 0, null: false
+    t.integer "position", default: 0, null: false
+    t.integer "questionnaire_id", null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.index ["questionnaire_id"], name: "index_questionnaire_fields_on_questionnaire_id"
+  end
+
+  create_table "questionnaire_response_entries", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.text "free_text"
+    t.integer "questionnaire_condition_block_id"
+    t.integer "questionnaire_condition_option_id"
+    t.integer "questionnaire_field_id", null: false
+    t.integer "questionnaire_field_option_id"
+    t.integer "questionnaire_response_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["questionnaire_condition_block_id"], name: "idx_on_questionnaire_condition_block_id_5333921dfa"
+    t.index ["questionnaire_condition_option_id"], name: "idx_on_questionnaire_condition_option_id_55890ff418"
+    t.index ["questionnaire_field_id"], name: "index_questionnaire_response_entries_on_questionnaire_field_id"
+    t.index ["questionnaire_field_option_id"], name: "idx_on_questionnaire_field_option_id_eb4cef134f"
+    t.index ["questionnaire_response_id"], name: "idx_on_questionnaire_response_id_04aaface27"
+  end
+
+  create_table "questionnaire_responses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "questionnaire_id", null: false
+    t.integer "respondent_age", null: false
+    t.string "respondent_full_name", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["questionnaire_id"], name: "index_questionnaire_responses_on_questionnaire_id"
+    t.index ["user_id", "questionnaire_id"], name: "index_questionnaire_responses_on_user_id_and_questionnaire_id", unique: true
+    t.index ["user_id"], name: "index_questionnaire_responses_on_user_id"
+  end
+
+  create_table "questionnaires", force: :cascade do |t|
+    t.boolean "active", default: false, null: false
+    t.datetime "created_at", null: false
+    t.text "intro"
+    t.string "title", default: "Анкета", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "questions", force: :cascade do |t|
@@ -135,6 +210,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_21_150000) do
   add_foreign_key "evaluations", "users"
   add_foreign_key "evaluations", "users", column: "admin_id"
   add_foreign_key "profiles", "users"
+  add_foreign_key "questionnaire_condition_blocks", "questionnaire_fields"
+  add_foreign_key "questionnaire_condition_options", "questionnaire_condition_blocks"
+  add_foreign_key "questionnaire_field_options", "questionnaire_fields"
+  add_foreign_key "questionnaire_fields", "questionnaires"
+  add_foreign_key "questionnaire_response_entries", "questionnaire_condition_blocks"
+  add_foreign_key "questionnaire_response_entries", "questionnaire_condition_options"
+  add_foreign_key "questionnaire_response_entries", "questionnaire_field_options"
+  add_foreign_key "questionnaire_response_entries", "questionnaire_fields"
+  add_foreign_key "questionnaire_response_entries", "questionnaire_responses"
+  add_foreign_key "questionnaire_responses", "questionnaires"
+  add_foreign_key "questionnaire_responses", "users"
   add_foreign_key "questions", "categories"
   add_foreign_key "quiz_attempts", "categories"
   add_foreign_key "quiz_attempts", "users"

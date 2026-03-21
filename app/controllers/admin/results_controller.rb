@@ -69,7 +69,7 @@ module Admin
 
       # Ответы по категориям для удобной проверки
       all_answers = answers_scope
-        .includes(:question, :answer_option, question: :category)
+        .includes(:question, :answer_option, question: %i[category answer_options])
         .joins(question: :category)
         .order("categories.title", "questions.id")
       @user_answers_by_category = all_answers.group_by { |ua| ua.question.category }.sort_by { |cat, _| cat.title }.to_h

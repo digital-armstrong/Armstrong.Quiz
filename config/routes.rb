@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get "privacy", to: "pages#privacy", as: :privacy
 
   root "home#index"
-  get "profile", to: "profile#show", as: :profile
+  resource :profile, only: %i[show edit update], controller: "profile"
 
   namespace :admin do
     root "results#index", as: :root

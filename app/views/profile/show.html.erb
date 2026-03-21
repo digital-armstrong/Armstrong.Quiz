@@ -4,7 +4,10 @@
 <% end %>
 
 <div class="max-w-5xl mx-auto">
-  <h1 class="text-3xl font-bold mb-2"><%= t("profile.title") %></h1>
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+    <h1 class="text-3xl font-bold"><%= t("profile.title") %></h1>
+    <%= link_to t("profile.edit_link"), edit_profile_path, class: "btn btn-outline btn-primary shrink-0" %>
+  </div>
 
   <div class="card bg-base-100 shadow mb-8">
     <div class="card-body">

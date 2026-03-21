@@ -1,0 +1,25 @@
+<div class="dropdown dropdown-end">
+  <div tabindex="0" role="button" class="btn btn-ghost btn-sm max-w-[min(100vw-8rem,14rem)] justify-start gap-2 normal-case font-normal">
+    <span class="truncate text-left"><%= nav_user_menu_label(current_user) %></span>
+  </div>
+  <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+    <li>
+      <%= link_to profile_path, class: "flex items-center gap-2" do %>
+        <%= heroicon "user", variant: :mini, options: { class: "w-4 h-4 shrink-0 opacity-80" } %>
+        <span><%= t("nav.profile") %></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to edit_profile_path, class: "flex items-center gap-2" do %>
+        <%= heroicon "cog-8-tooth", variant: :mini, options: { class: "w-4 h-4 shrink-0 opacity-80" } %>
+        <span><%= t("nav.settings") %></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to destroy_user_session_path, class: "flex items-center gap-2 text-error", data: { turbo_method: :delete } do %>
+        <%= heroicon "arrow-right-on-rectangle", variant: :mini, options: { class: "w-4 h-4 shrink-0" } %>
+        <span><%= t("nav.logout") %></span>
+      <% end %>
+    </li>
+  </ul>
+</div>

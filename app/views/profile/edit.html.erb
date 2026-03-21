@@ -1,0 +1,62 @@
+<div class="max-w-xl mx-auto">
+  <h1 class="text-3xl font-bold mb-2"><%= t("profile.edit_title") %></h1>
+  <p class="text-base-content/70 mb-6"><%= t("profile.edit_subtitle") %></p>
+
+  <%= form_with model: @user, url: profile_path, method: :patch, class: "space-y-6" do |f| %>
+    <%= render "shared/error_messages", resource: @user %>
+
+    <div class="card bg-base-100 shadow">
+      <div class="card-body space-y-4">
+        <h2 class="card-title text-lg"><%= t("profile.sections.personal") %></h2>
+        <%= f.fields_for :profile, @user.profile || @user.build_profile do |pf| %>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="form-control">
+              <%= pf.label :last_name, t("activerecord.attributes.profile.last_name"), class: "label" %>
+              <%= pf.text_field :last_name, class: "input input-bordered w-full" %>
+            </div>
+            <div class="form-control">
+              <%= pf.label :first_name, t("activerecord.attributes.profile.first_name"), class: "label" %>
+              <%= pf.text_field :first_name, class: "input input-bordered w-full" %>
+            </div>
+          </div>
+          <div class="form-control">
+            <%= pf.label :middle_name, t("activerecord.attributes.profile.middle_name"), class: "label" %>
+            <%= pf.text_field :middle_name, class: "input input-bordered w-full" %>
+          </div>
+        <% end %>
+        <div class="form-control">
+          <%= f.label :email, class: "label" %>
+          <%= f.email_field :email, autocomplete: "email", class: "input input-bordered w-full" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-base-100 shadow">
+      <div class="card-body space-y-4">
+        <h2 class="card-title text-lg"><%= t("profile.sections.password") %></h2>
+        <p class="text-sm text-base-content/70"><%= t("profile.password_hint") %></p>
+        <div class="form-control">
+          <%= f.label :password, class: "label" %>
+          <%= f.password_field :password, autocomplete: "new-password", class: "input input-bordered w-full" %>
+          <% if @minimum_password_length %>
+            <span class="label-text-alt text-base-content/60"><%= t("profile.password_min", count: @minimum_password_length) %></span>
+          <% end %>
+        </div>
+        <div class="form-control">
+          <%= f.label :password_confirmation, class: "label" %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input input-bordered w-full" %>
+        </div>
+        <div class="form-control">
+          <%= f.label :current_password, class: "label" %>
+          <%= f.password_field :current_password, autocomplete: "current-password", class: "input input-bordered w-full" %>
+          <span class="label-text-alt text-base-content/60"><%= t("profile.current_password_hint") %></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap gap-3">
+      <%= f.submit t("actions.update"), class: "btn btn-primary" %>
+      <%= link_to t("profile.back_to_profile"), profile_path, class: "btn btn-ghost" %>
+    </div>
+  <% end %>
+</div>

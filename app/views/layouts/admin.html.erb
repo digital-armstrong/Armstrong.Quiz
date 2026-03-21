@@ -42,7 +42,7 @@
             <li><%= link_to t("admin.nav.evaluations"), admin_evaluation_summaries_path %></li>
           </ul>
         </div>
-        <%= link_to t("admin.nav.logout"), destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-ghost btn-sm" %>
+        <%= render "shared/user_nav_dropdown" %>
       </div>
     </div>
 

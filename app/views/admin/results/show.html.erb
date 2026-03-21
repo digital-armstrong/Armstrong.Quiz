@@ -80,55 +80,7 @@
           <h2 class="text-xl font-semibold mb-4 pb-2 border-b border-base-300"><%= category.title %></h2>
           <div class="space-y-4">
             <% answers.each do |ua| %>
-              <div class="card bg-base-100 shadow">
-                <div class="card-body">
-                  <h3 class="font-semibold"><%= ua.question.title %></h3>
-                  <% if ua.answer_option %>
-                    <div class="markdown text-sm"><%= markdown(ua.answer_option.body) %></div>
-                    <% if ua.answer_option.correct? %>
-                      <span class="badge badge-success"><%= t("admin.dashboard.correct") %></span>
-                    <% else %>
-                      <span class="badge badge-error"><%= t("admin.dashboard.incorrect") %></span>
-                    <% end %>
-                    <% if ua.comment.present? %>
-                      <p class="text-sm mt-2"><strong><%= t("admin.results.comment") %>:</strong></p>
-                      <div class="markdown text-sm mt-1"><%= markdown(ua.comment) %></div>
-                    <% end %>
-                  <% else %>
-                    <p class="text-sm"><strong><%= t("admin.results.answer_in_words") %>:</strong></p>
-                    <div class="markdown text-sm mt-1"><%= ua.comment.present? ? markdown(ua.comment) : "—" %></div>
-                    <% if ua.admin_correct.nil? %>
-                      <p class="text-warning text-sm mt-2"><%= t("admin.results.awaiting_approval") %></p>
-                      <div class="flex gap-2 mt-2">
-                        <%= button_to t("admin.dashboard.correct"),
-                        admin_user_answer_path(ua),
-                        method: :patch,
-                        params: {
-                          user_answer: {
-                            admin_correct: true,
-                          },
-                        },
-                        class: "btn btn-success btn-sm" %>
-                        <%= button_to t("admin.dashboard.incorrect"),
-                        admin_user_answer_path(ua),
-                        method: :patch,
-                        params: {
-                          user_answer: {
-                            admin_correct: false,
-                          },
-                        },
-                        class: "btn btn-error btn-sm" %>
-                      </div>
-                    <% else %>
-                      <% if ua.admin_correct? %>
-                        <span class="badge badge-success"><%= t("admin.dashboard.correct") %></span>
-                      <% else %>
-                        <span class="badge badge-error"><%= t("admin.dashboard.incorrect") %></span>
-                      <% end %>
-                    <% end %>
-                  <% end %>
-                </div>
-              </div>
+              <%= render "user_answer_card", ua: ua %>
             <% end %>
           </div>
         </div>

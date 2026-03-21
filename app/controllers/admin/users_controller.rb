@@ -79,8 +79,13 @@ module Admin
     end
 
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation, :role,
+      p = params.require(:user).permit(:email, :password, :password_confirmation, :role,
         profile_attributes: %i[id first_name last_name middle_name])
+      if p[:password].blank?
+        p.delete(:password)
+        p.delete(:password_confirmation)
+      end
+      p
     end
   end
 end

@@ -53,7 +53,7 @@ class User < ApplicationRecord
   def full_name
     return email unless profile
 
-    parts = [profile.last_name, profile.first_name]
+    parts = [ profile.last_name, profile.first_name ]
     parts << profile.middle_name if profile.middle_name.present?
     parts.join(" ")
   end

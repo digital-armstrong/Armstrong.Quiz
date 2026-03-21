@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
 class ProfileController < ApplicationController
+  include UserAccountUpdates
+
   before_action :authenticate_user!
+  before_action :prepare_user, only: %i[edit update]
+
+  layout :profile_layout
 
   def show
     # Для наставников — список оценённых пользователей
@@ -31,5 +36,41 @@ class ProfileController < ApplicationController
       pct = total.positive? ? (correct.to_f / total * 100).round(1) : 0
       [cat, pct]
     end
+  end
+
+  def edit
+    @user = current_user
+    @minimum_password_length = User.password_length.min
+  end
+
+  def update
+    @user = current_user
+    if update_user_account(@user, account_params)
+      bypass_sign_in(@user, scope: :user) if account_params[:password].present?
+      redirect_to profile_path, notice: t("profile.updated")
+    else
+      @minimum_password_length = User.password_length.min
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def profile_layout
+    current_user.admin_or_mentor? ? "admin" : "application"
+  end
+
+  def prepare_user
+    current_user.build_profile if current_user.profile.nil?
+  end
+
+  def account_params
+    params.require(:user).permit(
+      :email,
+      :password,
+      :password_confirmation,
+      :current_password,
+      profile_attributes: %i[id first_name last_name middle_name]
+    )
   end
 end

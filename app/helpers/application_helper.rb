@@ -1,4 +1,11 @@
 module ApplicationHelper
+  # Полное ФИО для шапки; если пусто — email (например, профиль без имён).
+  def nav_user_menu_label(user)
+    return "" if user.blank?
+
+    user.full_name.to_s.strip.presence || user.email
+  end
+
   # «Фамилия И.О.» для подписей на графиках и компактного вывода.
   # Принимает User или Profile; без профиля/фамилии — +fallback+ или email пользователя.
   def fio_short(record, fallback: nil)
