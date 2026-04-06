@@ -11,10 +11,11 @@ module Admin
       countable_scope = answers_scope.countable_for_stats
       @total_answers_by_user = answers_scope.group("quiz_attempts.user_id").count
       @total_countable_by_user = countable_scope.group("quiz_attempts.user_id").count
-      @correct_answers_by_user = answers_scope.countable_for_stats.where(
-        "(answer_options.correct = :yes) OR (user_answers.answer_option_id IS NULL AND user_answers.admin_correct = :yes)",
-        yes: true
-      ).group("quiz_attempts.user_id").count
+      countable_by_user = answers_scope.countable_for_stats
+        .includes(:answer_option, :quiz_attempt, question: :answer_options)
+        .to_a
+        .group_by { |ua| ua.quiz_attempt.user_id }
+      @correct_answers_by_user = countable_by_user.transform_values { |list| list.count(&:correct_for_stats?) }
 
       @overall_completed = QuizAttempt.where(completed: true).count
       countable = UserAnswer.countable_for_stats
@@ -49,7 +50,7 @@ module Admin
       countable_scope = answers_scope.countable_for_stats
       @completed_count = attempts_scope.where(completed: true).count
       @total_answers = countable_scope.count
-      @pending_answers_count = answers_scope.where(answer_option_id: nil, admin_correct: nil).count
+      @pending_answers_count = answers_scope.pending_admin_review.count
       @correct_answers = UserAnswer.correct_countable(answers_scope)
       @correct_percent = @total_answers.positive? ? (@correct_answers.to_f / @total_answers * 100).round(1) : 0
 
@@ -57,10 +58,9 @@ module Admin
         t("admin.dashboard.correct") => @correct_answers,
         t("admin.dashboard.incorrect") => @total_answers - @correct_answers
       }
-      total_countable_by_category = countable_scope.joins(question: :category).group("categories.title").count
-      correct_by_category = countable_scope
-        .where("(answer_options.correct = :yes) OR (user_answers.admin_correct = :yes)", yes: true)
-        .joins(question: :category).group("categories.title").count
+      countable_list = countable_scope.preload(:answer_option, question: :answer_options).to_a
+      total_countable_by_category = countable_list.group_by { |ua| ua.question.category.title }.transform_values(&:size)
+      correct_by_category = countable_list.group_by { |ua| ua.question.category.title }.transform_values { |list| list.count(&:correct_for_stats?) }
       @answers_percent_by_category = {}
       total_countable_by_category.each do |cat, total|
         correct = correct_by_category[cat].to_i

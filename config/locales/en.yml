@@ -102,6 +102,9 @@ en:
     start_description: "You will go through the questions one by one. You can add an optional comment to each answer."
     start_button: "Start quiz"
     choose_answer: "Choose one answer"
+    choose_answers: "Select all that apply"
+    select_at_least_one: "Select at least one answer."
+    invalid_selection: "Invalid answer selection."
     answer_in_words: "Write your answer in free form"
     answer_in_words_placeholder: "Enter your answer..."
     comment_optional: "Comment (optional)"
@@ -154,6 +157,8 @@ en:
       edit: "Edit question"
       position: "Position"
       pool_tag_hint: "This label will be used when building the quiz question pool (coming later)."
+      multiple_answers_hint: "If enabled, students can select several options; all correct options must be chosen for the answer to count as correct."
+      multiple_answers_badge: "Multiple answers"
       created: "Question was successfully created."
       updated: "Question was successfully updated."
       destroyed: "Question was successfully destroyed."
@@ -310,6 +315,10 @@ en:
         too_short: "is too short (minimum is %{count} characters)"
         wrong_length: "is the wrong length (should be %{count} characters)"
       models:
+        question:
+          attributes:
+            multiple_answers:
+              need_two_options: "must have at least two answer options when enabled."
         quiz_attempt:
           one_active_attempt: "You already have an active quiz attempt."
           category_already_completed: "You have already completed the quiz in this category."
@@ -338,6 +347,7 @@ en:
         body: "Question text"
         position: "Position"
         pool_tag: "Pool label"
+        multiple_answers: "Allow multiple answers"
         category: "Category"
         category_id: "Category"
       answer_option:

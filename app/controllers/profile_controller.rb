@@ -27,10 +27,9 @@ class ProfileController < ApplicationController
       t("profile.charts.correct") => @correct_answers,
       t("profile.charts.incorrect") => @total_answers - @correct_answers
     }
-    answers_by_category = answers_scope.joins(question: :category).group("categories.title").count
-    correct_by_category = countable_scope
-      .where("(answer_options.correct = :yes) OR (user_answers.admin_correct = :yes)", yes: true)
-      .joins(question: :category).group("categories.title").count
+    countable_list = countable_scope.preload(:answer_option, question: :answer_options).to_a
+    answers_by_category = countable_list.group_by { |ua| ua.question.category.title }.transform_values(&:size)
+    correct_by_category = countable_list.group_by { |ua| ua.question.category.title }.transform_values { |list| list.count(&:correct_for_stats?) }
     @answers_percent_by_category = answers_by_category.to_h do |cat, total|
       correct = correct_by_category[cat].to_i
       pct = total.positive? ? (correct.to_f / total * 100).round(1) : 0

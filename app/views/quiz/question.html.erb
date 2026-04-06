@@ -18,10 +18,16 @@
         <% if @answer_options.any? %>
           <div class="form-control">
             <fieldset class="flex flex-col gap-2">
-              <legend class="label text-base font-semibold"><%= t("quiz.choose_answer") %></legend>
+              <legend class="label text-base font-semibold">
+                <%= @question.multiple_answers? ? t("quiz.choose_answers") : t("quiz.choose_answer") %>
+              </legend>
               <% @answer_options.each do |option| %>
                 <label class="label cursor-pointer justify-start gap-3 p-3 rounded-lg border border-base-300 hover:bg-base-200">
-                  <%= radio_button_tag :answer_option_id, option.id, false, class: "radio radio-primary", required: true %>
+                  <% if @question.multiple_answers? %>
+                    <%= check_box_tag "answer_option_ids[]", option.id, false, class: "checkbox checkbox-primary", id: "answer_option_#{option.id}" %>
+                  <% else %>
+                    <%= radio_button_tag :answer_option_id, option.id, false, class: "radio radio-primary", required: true %>
+                  <% end %>
                   <span class="markdown"><%= markdown(option.body) %></span>
                 </label>
               <% end %>

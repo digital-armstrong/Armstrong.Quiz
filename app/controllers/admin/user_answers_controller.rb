@@ -6,6 +6,7 @@ module Admin
 
     def update
       authorize @user_answer
+      return head :unprocessable_entity if @user_answer.question.answer_options.any?
       return head :unprocessable_entity unless @user_answer.answer_option_id.nil?
 
       user_id = @user_answer.quiz_attempt.user_id

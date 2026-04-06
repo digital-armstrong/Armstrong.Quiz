@@ -56,13 +56,31 @@ class QuizController < ApplicationController
     comment = params[:comment].to_s.strip
 
     if @question.answer_options.any?
-      answer_option = @question.answer_options.find(params[:answer_option_id])
-      UserAnswer.create!(
-        quiz_attempt_id: @attempt.id,
-        question_id: @question.id,
-        answer_option_id: answer_option.id,
-        comment: comment.presence
-      )
+      if @question.multiple_answers?
+        raw_ids = Array(params[:answer_option_ids]).map(&:to_i).uniq
+        valid_ids = @question.answer_options.where(id: raw_ids).pluck(:id).uniq.sort
+        if raw_ids.empty?
+          redirect_to quiz_path, alert: t("quiz.select_at_least_one") and return
+        end
+        if valid_ids.size != raw_ids.size
+          redirect_to quiz_path, alert: t("quiz.invalid_selection") and return
+        end
+        UserAnswer.create!(
+          quiz_attempt_id: @attempt.id,
+          question_id: @question.id,
+          answer_option_id: nil,
+          selected_answer_option_ids: valid_ids,
+          comment: comment.presence
+        )
+      else
+        answer_option = @question.answer_options.find(params[:answer_option_id])
+        UserAnswer.create!(
+          quiz_attempt_id: @attempt.id,
+          question_id: @question.id,
+          answer_option_id: answer_option.id,
+          comment: comment.presence
+        )
+      end
     else
       UserAnswer.create!(
         quiz_attempt_id: @attempt.id,

@@ -25,6 +25,9 @@
           <%= Question.human_pool_tag_name(@question.pool_tag) %>
         </span>
       <% end %>
+      <% if @question.multiple_answers? %>
+        <span class="badge badge-info badge-sm"><%= t("admin.questions.multiple_answers_badge") %></span>
+      <% end %>
     </div>
     <div class="markdown mt-2"><%= markdown(@question.body) %></div>
   </div>

@@ -5,7 +5,15 @@
       <h3 class="font-semibold text-lg flex-1 min-w-[12rem]"><%= q.title %></h3>
       <div class="flex flex-wrap gap-2 shrink-0">
         <% if q.answer_options.any? %>
-          <% if ua.answer_option %>
+          <% if q.multiple_answers? %>
+            <% if ua.selected_ids_normalized.empty? %>
+              <span class="badge badge-ghost"><%= t("admin.results.no_answer_selected") %></span>
+            <% elsif ua.correct_for_stats? %>
+              <span class="badge badge-success"><%= t("admin.dashboard.correct") %></span>
+            <% else %>
+              <span class="badge badge-error"><%= t("admin.dashboard.incorrect") %></span>
+            <% end %>
+          <% elsif ua.answer_option %>
             <% if ua.answer_option.correct? %>
               <span class="badge badge-success"><%= t("admin.dashboard.correct") %></span>
             <% else %>
@@ -32,7 +40,7 @@
       <p class="text-sm font-medium text-base-content/80 mb-2"><%= t("admin.results.answer_options_heading") %></p>
       <ul class="space-y-2">
         <% q.answer_options.each do |opt| %>
-          <% chosen = ua.answer_option_id == opt.id %>
+          <% chosen = ua.chosen_answer?(opt) %>
           <% row_border =
             if chosen && opt.correct?
               "border-2 border-success bg-success/5"
