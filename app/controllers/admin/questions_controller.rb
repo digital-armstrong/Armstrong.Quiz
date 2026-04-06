@@ -7,7 +7,8 @@ module Admin
     before_action :set_categories, only: %i[new edit create update new_option_fields]
 
     def index
-      @questions = policy_scope(Question).includes(:category).order("categories.title", :id)
+      questions = policy_scope(Question).includes(:category).order("categories.title", :id)
+      @questions_by_category = questions.group_by(&:category)
     end
 
     def show

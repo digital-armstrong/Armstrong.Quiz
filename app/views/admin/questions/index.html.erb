@@ -6,52 +6,69 @@
   <% end %>
 </div>
 
-<div class="overflow-x-auto bg-base-100 rounded-box shadow">
-  <table class="table">
-    <thead>
-      <tr>
-        <th><%= Question.human_attribute_name(:title) %></th>
-        <th><%= Category.model_name.human %></th>
-        <th><%= Question.human_attribute_name(:pool_tag) %></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @questions.each do |q| %>
-        <tr class="hover:bg-base-200 transition-all duration-300 whitespace-nowrap">
-          <td><%= truncate(q.title, length: 50) %></td>
-          <td><%= q.category.title %></td>
-          <td>
-            <% if q.standard? %>
-              <span class="text-base-content/50 text-sm">—</span>
-            <% else %>
-              <span class="badge <%= q.difficult? ? 'badge-warning' : 'badge-error' %> badge-sm">
-                <%= Question.human_pool_tag_name(q.pool_tag) %>
-              </span>
-            <% end %>
-          </td>
-          <td class="flex justify-end gap-2">
-            <%= link_to admin_question_path(q), class: "btn btn-ghost btn-sm gap-1" do %>
-              <%= heroicon :eye, variant: :mini, options: { class: "w-4 h-4" } %>
-              <span><%= t("admin.actions.show") %></span>
-            <% end %>
-            <%= link_to edit_admin_question_path(q), class: "btn btn-ghost btn-sm gap-1" do %>
-              <%= heroicon :pencil, variant: :mini, options: { class: "w-4 h-4" } %>
-              <span><%= t("admin.actions.edit") %></span>
-            <% end %>
-            <%= link_to new_admin_question_answer_option_path(q), class: "btn btn-ghost btn-sm gap-1" do %>
-              <%= heroicon :plus, variant: :mini, options: { class: "w-4 h-4" } %>
-              <span><%= t("admin.answer_options.add") %></span>
-            <% end %>
-            <%= button_to admin_question_path(q), method: :delete,
-                  form: { data: { turbo_confirm: t("admin.confirm_destroy") } },
-                  class: "btn btn-ghost btn-sm text-error gap-1" do %>
-              <%= heroicon :trash, variant: :mini, options: { class: "w-4 h-4" } %>
-              <span><%= t("admin.actions.destroy") %></span>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+<% if @questions_by_category.blank? %>
+  <p class="text-base-content/60"><%= t("admin.questions.index_empty") %></p>
+<% else %>
+  <div class="space-y-10">
+    <% @questions_by_category.each do |category, category_questions| %>
+      <section>
+        <h2 class="text-xl font-semibold mb-3 pb-2 border-b border-base-300"><%= category.title %></h2>
+        <div class="overflow-x-auto bg-base-100 rounded-box shadow">
+          <table class="table">
+            <thead>
+              <tr>
+                <th><%= Question.human_attribute_name(:title) %></th>
+                <th><%= Question.human_attribute_name(:body) %></th>
+                <th><%= Question.human_attribute_name(:pool_tag) %></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% category_questions.each do |q| %>
+                <tr class="hover:bg-base-200 transition-all duration-300">
+                  <td class="max-w-md align-top font-medium whitespace-normal"><%= truncate(q.title.to_s, length: 100) %></td>
+                  <td class="max-w-xl align-top text-sm text-base-content/80 whitespace-normal">
+                    <% if q.body.present? %>
+                      <%= truncate(q.body.to_s.squish, length: 50) %>
+                    <% else %>
+                      <span class="text-base-content/40">—</span>
+                    <% end %>
+                  </td>
+                  <td class="align-top whitespace-nowrap">
+                    <% if q.standard? %>
+                      <span class="text-base-content/50 text-sm">—</span>
+                    <% else %>
+                      <span class="badge <%= q.difficult? ? 'badge-warning' : 'badge-error' %> badge-sm">
+                        <%= Question.human_pool_tag_name(q.pool_tag) %>
+                      </span>
+                    <% end %>
+                  </td>
+                  <td class="flex justify-end gap-2 whitespace-nowrap align-top">
+                    <%= link_to admin_question_path(q), class: "btn btn-ghost btn-sm gap-1" do %>
+                      <%= heroicon :eye, variant: :mini, options: { class: "w-4 h-4" } %>
+                      <span><%= t("admin.actions.show") %></span>
+                    <% end %>
+                    <%= link_to edit_admin_question_path(q), class: "btn btn-ghost btn-sm gap-1" do %>
+                      <%= heroicon :pencil, variant: :mini, options: { class: "w-4 h-4" } %>
+                      <span><%= t("admin.actions.edit") %></span>
+                    <% end %>
+                    <%= link_to new_admin_question_answer_option_path(q), class: "btn btn-ghost btn-sm gap-1" do %>
+                      <%= heroicon :plus, variant: :mini, options: { class: "w-4 h-4" } %>
+                      <span><%= t("admin.answer_options.add") %></span>
+                    <% end %>
+                    <%= button_to admin_question_path(q), method: :delete,
+                          form: { data: { turbo_confirm: t("admin.confirm_destroy") } },
+                          class: "btn btn-ghost btn-sm text-error gap-1" do %>
+                      <%= heroicon :trash, variant: :mini, options: { class: "w-4 h-4" } %>
+                      <span><%= t("admin.actions.destroy") %></span>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    <% end %>
+  </div>
+<% end %>

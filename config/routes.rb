@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "users/registrations" }
   get "up" => "rails/health#show", as: :rails_health_check
   get "privacy", to: "pages#privacy", as: :privacy
+  get "about", to: "pages#about", as: :about
 
   root "home#index"
   resource :profile, only: %i[show edit update], controller: "profile"

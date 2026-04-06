@@ -38,6 +38,7 @@ en:
     settings: "Settings"
     admin: "Admin"
     logout: "Log out"
+    about_niiar: "About NIIAR"
 
   profile:
     title: "My profile"
@@ -77,6 +78,58 @@ en:
   pages:
     privacy:
       title: "Privacy & Personal Data"
+    about:
+      meta_title: "SSC RIAR — Armstrong Quiz"
+      badge: "Joint-stock company"
+      hero_title: "State Scientific Centre — Research Institute of Atomic Reactors"
+      hero_subtitle: "A leading Russian organisation for research nuclear facilities and nuclear technologies."
+      intro: "JSC «SSC RIAR» (Dimitrovgrad, Ulyanovsk Region) operates a unique complex of research reactors and test stands. The centre addresses safe operation of installations, materials science, isotope production, and training for the nuclear industry."
+      cta_quiz: "Go to quiz"
+      scroll_hint: "Scroll down — four full screens"
+      scroll_label: "Next"
+      section_reactors_title: "Research reactors on site"
+      section_reactors_lead: "The site hosts several reactor types — from high-flux research reactors to test loops for technology validation and personnel training."
+      reactors:
+        sm3:
+          name: "СМ-3 research reactor"
+          desc: "Vessel-type water-water reactor with intermediate spectrum and a neutron trap (since 1961, 100 MW). High thermal-neutron flux in experimental channels — up to 5·10¹⁵ cm⁻²·s⁻¹; steel vessel, beryllium reflector and extensive channel layout."
+        vk50:
+          name: "VK-50 reactor"
+          desc: "Russia’s only experimental vessel boiling water reactor with natural circulation and direct steam to the turbine. Almost 60 years of cogeneration (up to 200 MW thermal / 50 MW electric); neutron flux ~1.9·10¹³ cm⁻²·s⁻¹. Experimental and analytical work on fuel, thermal physics and code verification for operating and innovative reactors."
+        mir:
+          name: "MIR reactor"
+          desc: "Multi-loop reactor since 1967: fuel testing under normal and design-accident-like conditions. Thermal heterogeneous core with beryllium moderator/reflector; channel-in-pool design combining pool and channel reactor benefits."
+        bor60:
+          name: "BOR-60 fast reactor"
+          desc: "Experimental 60 MW sodium-cooled fast reactor since 1969 — small-NPP prototype: power generation and heat to the NIIAR grid. Fast-reactor fuel cycle and sodium technology; intense fast-neutron flux for structural, fuel and absorber materials."
+        rbt:
+          name: "RBT-6 / RBT-10 facilities"
+          desc: "Pool-type water-water reactors (commissioned 1975, 1983 and 1984). Long-term experiments with stable parameters; uses fuel assemblies after the SM reactor. Thermal-neutron flux about 10¹³–10¹⁴ cm⁻²·s⁻¹."
+        materials_complex:
+          name: "Materials science complex"
+          desc: "Among the world’s largest reactor materials-science complexes: studying properties of materials and components after irradiation in reactors. The experimental base is designed for highly radioactive objects; hot cells house specialised equipment for automatic and remote operation."
+      research_title: "Research areas"
+      research_lead: "SSC RIAR’s R&D covers reactor materials science, nuclear and radiation safety, the fuel cycle, isotope technologies and personnel training. Below are the main work areas, supported by the institute’s reactor infrastructure and materials-science complex."
+      research_items:
+        - "Materials science and radiation effects on structural, fuel and absorber materials: property studies after irradiation, test method development, lifetime assessment and justification of material performance under reactor conditions."
+        - "Fuel cycle and radioactive material management: spent fuel management, storage designs and technologies, radioactive waste handling; regulatory support and safety-case development."
+        - "Safety of research and power reactor installations: analysis of normal and transient modes, design-basis and beyond-design situations, code verification and justification of measures for safe operation."
+        - "Isotope production and applications: technology development and improvement, supply for medicine, industry, science and metrology."
+        - "Thermal physics, thermal hydraulics and fluid dynamics of nuclear systems: heat transfer, hydrodynamics and transient behaviour; justification of operating modes and equipment for existing and future reactor systems."
+        - "Training, retraining and certification for the nuclear industry: education programmes for research facilities, simulators and hands-on practice on the institute’s unique reactor stands."
+      contacts_title: "Contacts"
+      contacts:
+        legal: "Full legal name"
+        org_name: 'Joint-stock company «State Scientific Centre — Research Institute of Atomic Reactors» (JSC «SSC RIAR»)'
+        address_label: "Address"
+        address: "433510, Ulyanovsk Region, Dimitrovgrad, Zapadnoye shosse, 9"
+        phone_label: "Phone"
+        phone: "+7 (84235) 9-82-00"
+        email_label: "E-mail"
+        email: "niiar@niiar.ru"
+        web_label: "Website"
+        web_url: "https://www.niiar.ru"
+      disclaimer: "All information on this page is for reference only.\nThe primary source is the official website www.niiar.ru."
 
   pundit:
     not_authorized: "You are not authorized to perform this action."
@@ -153,11 +206,12 @@ en:
       destroyed: "Category was successfully destroyed."
     questions:
       index_title: "Questions"
+      index_empty: "No questions yet."
       new: "New question"
       edit: "Edit question"
       position: "Position"
       pool_tag_hint: "This label will be used when building the quiz question pool (coming later)."
-      multiple_answers_hint: "If enabled, students can select several options; all correct options must be chosen for the answer to count as correct."
+      multiple_answers_hint: "If enabled, several options can be selected; the answer counts as correct only when all correct options are marked."
       multiple_answers_badge: "Multiple answers"
       created: "Question was successfully created."
       updated: "Question was successfully updated."
@@ -336,7 +390,7 @@ en:
       section:
         title: "Title"
         description: "Description"
-        enabled: "Section visible to students"
+        enabled: "Show section"
       category:
         title: "Title"
         description: "Description"

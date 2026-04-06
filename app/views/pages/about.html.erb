@@ -1,0 +1,221 @@
+<% content_for :title, t("pages.about.meta_title") %>
+
+<div
+  class="fixed inset-x-0 top-16 bottom-0 overflow-y-auto snap-y snap-mandatory scroll-smooth overscroll-y-contain"
+  data-controller="about-parallax"
+  data-about-parallax-target="scroller"
+>
+  <%# —— Экран 1: об организации —— %>
+  <section
+    data-about-section
+    class="relative flex min-h-full snap-start snap-always flex-col justify-center overflow-hidden px-5 py-16 md:px-12 lg:px-24"
+  >
+    <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+      <%# Фон в цветах айдентики ГНЦ НИИАР: глубокий синий + голубой акцент (без круглых «пятен») %>
+      <div class="absolute inset-0 bg-gradient-to-br from-[#004c97]/[0.12] via-base-100/0 to-[#00a4e3]/[0.1]"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_100%_0%,rgba(0,102,179,0.12),transparent_50%)]"></div>
+      <div
+        data-about-parallax-target="layer"
+        data-speed="0.38"
+        data-speed-x="-0.12"
+        class="absolute -left-6 top-[6%] h-[min(88vw,24rem)] w-[min(88vw,24rem)] opacity-[0.92] will-change-transform"
+      >
+        <%= render "niiar_atom", uid: "ab-s1a" %>
+      </div>
+      <div
+        data-about-parallax-target="layer"
+        data-speed="-0.3"
+        data-speed-x="0.2"
+        class="absolute -right-10 bottom-[5%] h-[min(72vw,18rem)] w-[min(72vw,18rem)] opacity-70 will-change-transform"
+      >
+        <%= render "niiar_atom", uid: "ab-s1b" %>
+      </div>
+      <div
+        data-about-parallax-target="layer"
+        data-speed="0.48"
+        data-speed-x="0.08"
+        class="absolute left-[18%] top-[38%] h-40 w-40 opacity-45 md:h-52 md:w-52 will-change-transform"
+      >
+        <%= render "niiar_atom", uid: "ab-s1c" %>
+      </div>
+      <div
+        data-about-parallax-target="layer"
+        data-speed="-0.2"
+        class="absolute right-[12%] top-[58%] h-32 w-32 opacity-40 md:h-40 md:w-40 will-change-transform"
+      >
+        <%= render "niiar_atom", uid: "ab-s1d" %>
+      </div>
+    </div>
+
+    <div class="mx-auto max-w-4xl">
+      <p class="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#0066b3]"><%= t("pages.about.badge") %></p>
+      <h1 class="mb-6 text-4xl font-extrabold leading-tight tracking-tight md:text-5xl lg:text-6xl">
+        <%= t("pages.about.hero_title") %>
+      </h1>
+      <p class="mb-4 text-lg text-base-content/80 md:text-xl"><%= t("pages.about.hero_subtitle") %></p>
+      <p class="max-w-3xl text-base leading-relaxed text-base-content/70 md:text-lg"><%= t("pages.about.intro") %></p>
+      <div class="mt-10 flex flex-wrap items-center gap-4">
+        <%= link_to root_path, class: "btn btn-primary" do %>
+          <%= t("pages.about.cta_quiz") %>
+        <% end %>
+        <span class="text-sm text-base-content/50"><%= t("pages.about.scroll_hint") %></span>
+      </div>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-base-content/40">
+      <span class="text-xs uppercase tracking-widest"><%= t("pages.about.scroll_label") %></span>
+      <span class="animate-bounce text-2xl" aria-hidden="true">↓</span>
+    </div>
+  </section>
+
+  <%# —— Экран 2: реакторы —— %>
+  <section
+    data-about-section
+    class="relative flex min-h-full snap-start snap-always flex-col justify-center overflow-hidden bg-base-200/80 px-5 py-16 md:px-12 lg:px-24"
+  >
+    <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+      <div class="absolute inset-0 bg-gradient-to-r from-[#004c97]/[0.08] via-transparent to-[#00a4e3]/[0.07]"></div>
+      <div
+        data-about-parallax-target="layer"
+        data-speed="0.36"
+        data-speed-x="0.15"
+        class="absolute -left-4 top-1/2 h-[min(70vw,17rem)] w-[min(70vw,17rem)] -translate-y-1/2 opacity-75 will-change-transform"
+      >
+        <%= render "niiar_atom", uid: "ab-s2a" %>
+      </div>
+      <div
+        data-about-parallax-target="layer"
+        data-speed="-0.32"
+        data-speed-x="-0.2"
+        class="absolute bottom-2 right-0 h-[min(85vw,20rem)] w-[min(85vw,20rem)] opacity-65 will-change-transform"
+      >
+        <%= render "niiar_atom", uid: "ab-s2b" %>
+      </div>
+      <div
+        data-about-parallax-target="layer"
+        data-speed="0.42"
+        class="absolute left-1/2 top-2 h-44 w-44 -translate-x-1/2 opacity-50 md:h-56 md:w-56 will-change-transform"
+      >
+        <%= render "niiar_atom", uid: "ab-s2c" %>
+      </div>
+    </div>
+
+    <div class="mx-auto w-full max-w-6xl">
+      <h2 class="mb-4 text-3xl font-bold md:text-4xl"><%= t("pages.about.section_reactors_title") %></h2>
+      <p class="mb-10 max-w-3xl text-base-content/70"><%= t("pages.about.section_reactors_lead") %></p>
+
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <% %w[sm3 vk50 mir bor60 rbt materials_complex].each do |key| %>
+          <div class="card bg-base-100 shadow-xl transition hover:shadow-2xl">
+            <div class="card-body">
+              <h3 class="card-title text-lg"><%= t("pages.about.reactors.#{key}.name") %></h3>
+              <p class="text-sm text-base-content/70"><%= t("pages.about.reactors.#{key}.desc") %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+
+  <%# —— Экран 3: направления исследований —— %>
+  <section
+    data-about-section
+    class="relative flex min-h-full snap-start snap-always flex-col justify-center overflow-hidden bg-base-100 px-5 py-12 md:px-12 md:py-16 lg:px-24"
+  >
+    <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+      <div class="absolute inset-0 bg-gradient-to-b from-[#004c97]/[0.06] via-transparent to-[#00a4e3]/[0.08]"></div>
+      <div
+        data-about-parallax-target="layer"
+        data-speed="0.34"
+        data-speed-x="-0.1"
+        class="absolute left-4 top-24 h-[min(60vw,14rem)] w-[min(60vw,14rem)] opacity-50 will-change-transform"
+      >
+        <%= render "niiar_atom", uid: "ab-s3a" %>
+      </div>
+      <div
+        data-about-parallax-target="layer"
+        data-speed="-0.32"
+        data-speed-x="0.18"
+        class="absolute bottom-0 right-0 h-[min(85vw,18rem)] w-[min(85vw,18rem)] opacity-55 will-change-transform"
+      >
+        <%= render "niiar_atom", uid: "ab-s3b" %>
+      </div>
+    </div>
+
+    <div class="relative z-0 mx-auto w-full max-w-6xl">
+      <h2 class="mb-4 text-3xl font-bold md:text-4xl"><%= t("pages.about.research_title") %></h2>
+      <p class="mb-8 max-w-4xl text-base leading-relaxed text-base-content/75 md:text-lg"><%= t("pages.about.research_lead") %></p>
+      <ul class="grid gap-4 md:grid-cols-2">
+        <% t("pages.about.research_items").each do |item| %>
+          <li class="rounded-box border border-base-300 bg-base-100/95 p-5 shadow-md md:p-6">
+            <span class="mt-1 mb-2 block h-1.5 w-8 rounded-full bg-[#0090d8]" aria-hidden="true"></span>
+            <p class="text-sm leading-relaxed text-base-content/85 md:text-base"><%= item %></p>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </section>
+
+  <%# —— Экран 4: контакты —— %>
+  <section
+    data-about-section
+    class="relative flex min-h-full snap-start snap-always flex-col justify-center overflow-hidden px-5 py-16 md:px-12 lg:px-24"
+  >
+    <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+      <div class="absolute inset-0 bg-gradient-to-l from-[#004c97]/[0.1] via-transparent to-base-100/0"></div>
+      <div
+        data-about-parallax-target="layer"
+        data-speed="0.35"
+        data-speed-x="-0.22"
+        class="absolute right-0 top-0 h-full w-[min(70%,28rem)] bg-gradient-to-l from-[#0066b3]/[0.14] to-transparent will-change-transform"
+      ></div>
+      <div
+        data-about-parallax-target="layer"
+        data-speed="-0.3"
+        data-speed-x="0.14"
+        class="absolute bottom-8 left-6 h-[min(75vw,19rem)] w-[min(75vw,19rem)] opacity-70 will-change-transform"
+      >
+        <%= render "niiar_atom", uid: "ab-s4a" %>
+      </div>
+      <div
+        data-about-parallax-target="layer"
+        data-speed="0.4"
+        class="absolute right-[8%] top-[28%] h-36 w-36 opacity-50 md:h-48 md:w-48 will-change-transform"
+      >
+        <%= render "niiar_atom", uid: "ab-s4b" %>
+      </div>
+    </div>
+
+    <div class="mx-auto w-full max-w-3xl">
+      <h2 class="mb-8 text-3xl font-bold md:text-4xl"><%= t("pages.about.contacts_title") %></h2>
+
+      <div class="space-y-6 rounded-2xl border border-base-300 bg-base-100 p-8 shadow-xl">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-wider text-base-content/50"><%= t("pages.about.contacts.legal") %></p>
+          <p class="mt-1 text-lg font-medium"><%= t("pages.about.contacts.org_name") %></p>
+        </div>
+        <div class="divider my-0"></div>
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-wider text-base-content/50"><%= t("pages.about.contacts.address_label") %></p>
+          <p class="mt-1 whitespace-pre-line text-base-content/80"><%= t("pages.about.contacts.address") %></p>
+        </div>
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-wider text-base-content/50"><%= t("pages.about.contacts.phone_label") %></p>
+          <p class="mt-1"><%= t("pages.about.contacts.phone") %></p>
+        </div>
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-wider text-base-content/50"><%= t("pages.about.contacts.email_label") %></p>
+          <p class="mt-1"><%= mail_to t("pages.about.contacts.email"), class: "link link-primary" %></p>
+        </div>
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-wider text-base-content/50"><%= t("pages.about.contacts.web_label") %></p>
+          <p class="mt-1">
+            <%= link_to t("pages.about.contacts.web_url"), t("pages.about.contacts.web_url"), target: "_blank", rel: "noopener noreferrer", class: "link link-primary" %>
+          </p>
+        </div>
+      </div>
+
+      <p class="mt-8 whitespace-pre-line text-center text-sm text-base-content/50"><%= t("pages.about.disclaimer") %></p>
+    </div>
+  </section>
+</div>

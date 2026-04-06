@@ -1,0 +1,23 @@
+<div class="navbar fixed top-0 left-0 right-0 z-50 bg-base-100 shadow-lg">
+  <div class="navbar-start">
+    <%= link_to root_path, class: "btn btn-ghost text-xl font-bold gap-1" do %>
+      <span class="font-extrabold">ARMStrong</span>
+      <span class="text-primary">:</span>
+      <span>Quiz</span>
+    <% end %>
+  </div>
+  <div class="navbar-end gap-2">
+    <%= link_to t("nav.about_niiar"), about_path, class: "btn btn-ghost btn-sm max-sm:px-2 max-sm:text-xs" %>
+    <% if user_signed_in? %>
+      <% if current_user.admin_or_mentor? %>
+        <%= link_to t("nav.admin"), admin_root_path, class: "btn btn-primary btn-sm" %>
+      <% end %>
+      <%= render "shared/user_nav_dropdown" %>
+    <% else %>
+      <%= link_to t("nav.sign_in"), new_user_session_path, class: "btn btn-ghost btn-sm" %>
+      <%= link_to t("nav.sign_up"),
+      new_user_registration_path,
+      class: "btn btn-primary btn-sm" %>
+    <% end %>
+  </div>
+</div>
